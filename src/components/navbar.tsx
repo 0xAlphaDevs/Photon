@@ -5,8 +5,12 @@ import { NavbarProps } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ConnectKitButton } from "connectkit";
+import { usePathname } from "next/navigation";
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
+
+  const pathname = usePathname();
+
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
       <div className="hidden border-r bg-muted/40 md:block">
@@ -28,7 +32,8 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
                 <Link
                   key={index}
                   href={link.href}
-                  className="flex items-center gap-4 rounded-lg px-3 py-2 transition-all text-lg hover:bg-slate-200"
+                  className={`flex items-center gap-3 rounded-lg px-3 text-lg py-2 my-2 transition-all hover:bg-slate-200 ${pathname === link.href ? 'bg-slate-300' : ''
+                    }`}
                   prefetch={false}
                 >
                   {link.image}
