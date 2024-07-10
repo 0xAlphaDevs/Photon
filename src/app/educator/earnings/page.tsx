@@ -2,7 +2,9 @@ import React from 'react'
 
 const EducatorEarnings = () => {
   return (
-    <div className="flex items-center justify-center h-screen">EducatorEarnings</div>
+    <div className="py-4">
+      <p className='text-lg font-medium'> Earnings</p>
+    </div>
   )
 }
 

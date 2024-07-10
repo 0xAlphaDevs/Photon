@@ -1,7 +1,10 @@
+"use client"
+
 import React from "react";
 import { NavbarProps } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
+import { ConnectKitButton } from "connectkit";
 
 const Navbar: React.FC<NavbarProps> = ({ links }) => {
   return (
@@ -33,6 +36,9 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
                 </Link>
               ))}
             </nav>
+          </div>
+          <div className="mt-auto p-4 flex justify-center">
+            <ConnectKitButton showBalance />
           </div>
         </div>
       </div>
