@@ -23,7 +23,6 @@ const EducatorDashboard = () => {
     router.push(`/educator/dashboard/course/${id}`);
   };
 
-
   return (
     <div className="py-8">
       <div className='flex justify-between'>
