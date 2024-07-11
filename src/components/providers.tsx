@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { WagmiProvider, createConfig } from "wagmi"
-import { Chain } from "wagmi/chains"
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
-import { ConnectKitProvider, getDefaultConfig } from "connectkit"
+import * as React from "react";
+import { WagmiProvider, createConfig } from "wagmi";
+import { Chain } from "wagmi/chains";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ConnectKitProvider, getDefaultConfig } from "connectkit";
 
 interface ProvidersProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
 const thetaTestnet: Chain = {
@@ -23,20 +23,23 @@ const thetaTestnet: Chain = {
     decimals: 18,
   },
   blockExplorers: {
-    default: { url: "https://testnet-explorer.thetatoken.org/", name: "Theta Testnet Explorer" },
+    default: {
+      url: "https://testnet-explorer.thetatoken.org/",
+      name: "Theta Testnet Explorer",
+    },
   },
-}
+};
 
 const config = createConfig(
   getDefaultConfig({
-    walletConnectProjectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
+    walletConnectProjectId:
+      process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "",
     chains: [thetaTestnet],
-    appName: "EtherGigs",
+    appName: "Photon",
   })
-)
+);
 
-
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 export function Providers({ children, ...props }: ProvidersProps) {
   return (
@@ -45,5 +48,5 @@ export function Providers({ children, ...props }: ProvidersProps) {
         <ConnectKitProvider theme="rounded">{children}</ConnectKitProvider>
       </QueryClientProvider>
     </WagmiProvider>
-  )
+  );
 }

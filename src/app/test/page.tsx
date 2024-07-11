@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import ReactPlayer from "react-player/lazy";
+import { DRMPlayer } from "./Player";
 
 const Test = () => {
   const [data, setData] = React.useState(null);
@@ -134,12 +135,13 @@ const Test = () => {
 
       <div className="grid grid-cols-3 gap-10">
         {videos.map((video: any, index) => (
-          <ReactPlayer
-            key={index}
-            url={video.playback_uri}
-            controls={true}
-            width="100%"
-          />
+          // <ReactPlayer
+          //   key={index}
+          //   url={video.playback_uri}
+          //   controls={true}
+          //   width="100%"
+          // />
+          <DRMPlayer key={index} videoId={video.id} />
         ))}
       </div>
     </div>
