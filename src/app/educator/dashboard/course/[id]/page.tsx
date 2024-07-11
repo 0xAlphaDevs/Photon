@@ -1,4 +1,5 @@
 
+import { Button } from '@/components/ui/button';
 import { courses } from '@/lib/courses';
 import { Course } from '@/lib/types';
 
@@ -11,7 +12,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   return (
     <div className="py-8">
-      <p>Id: {course.id}</p>
+      <div className='flex justify-between'>
+        <p>Id: {course.id}</p>
+        <div className='flex items-center gap-8'>
+          <Button>Go Live</Button>
+          <Button>+ Add Video</Button>
+        </div>
+      </div>
+
     </div>
   );
 };
