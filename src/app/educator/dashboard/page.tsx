@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react'
 import {
   Card,
@@ -10,9 +12,18 @@ import {
 import { Button } from '@/components/ui/button'
 import { courses } from '@/lib/courses'
 import { Course } from '@/lib/types'
+import { useRouter } from 'next/navigation'
 
 
 const EducatorDashboard = () => {
+
+  const router = useRouter();
+
+  const handleViewCourse = (id: string) => {
+    router.push(`/educator/dashboard/course/${id}`);
+  };
+
+
   return (
     <div className="py-8">
       <div className='flex justify-between'>
@@ -31,7 +42,7 @@ const EducatorDashboard = () => {
               <p>Price: ${course.price}</p>
             </CardContent>
             <CardFooter>
-              <Button className='w-full'>View Course</Button>
+              <Button className='w-full' onClick={() => handleViewCourse(course.id)}>View Course</Button>
             </CardFooter>
           </Card>
         ))}
