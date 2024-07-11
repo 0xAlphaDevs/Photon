@@ -12,9 +12,9 @@ export default function ClientDashboard({
   children: React.ReactNode
 }) {
   return (
-    <section className="grid grid-cols-6">
+    <section className="grid grid-cols-12 w-full">
       <Navbar links={links} />
-      <div className="col-span-5 px-10"> {children}</div>
+      <div className="col-start-3 col-end-13 pr-10 pl-16"> {children}</div>
     </section>
   )
 }

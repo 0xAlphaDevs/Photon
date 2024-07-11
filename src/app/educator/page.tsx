@@ -4,7 +4,7 @@ const Educator = () => {
   return (
     <>
       <div className="flex items-center justify-center h-screen">
-        Educator
+        <p className='text-2xl'>Welcome to Educator&apos;s Dashboard</p>
       </div>
     </>
   )
