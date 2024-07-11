@@ -1,0 +1,97 @@
+{
+  "status": "success",
+  "body": {
+    "videos": [
+      {
+        "id": "video_vadc0zt362sb28xtwqk254df9p",
+        "service_account_id": "srvacc_k3t4yn0u4gpxzzyxpirbtrnpk",
+        "playback_uri": "https://media.thetavideoapi.com/org_baehxqkk26jqafxd924krg4p3cbe/srvacc_k3t4yn0u4gpxzzyxpirbtrnpk/video_vadc0zt362sb28xtwqk254df9p/master.m3u8",
+        "player_uri": "https://player.thetavideoapi.com/video/video_vadc0zt362sb28xtwqk254df9p",
+        "use_drm": null,
+        "duration": "4617",
+        "use_studio_drm": false,
+        "hls_playback_uri": null,
+        "dash_playback_uri": null,
+        "create_time": "2024-07-08T10:39:37.005Z",
+        "update_time": "2024-07-08T23:23:30.335Z",
+        "file_name": null,
+        "state": "success",
+        "sub_state": "none",
+        "source_upload_id": "upload_d2tva1k7h6pxxr9y2jm0iembq",
+        "source_uri": null,
+        "playback_policy": "public",
+        "progress": 100,
+        "error": null,
+        "resolution": null,
+        "metadata": {
+          "tags": ["tag1", "tag2"],
+          "title": "My Video",
+          "creator": "0x123434334235df920923fjd2304",
+          "category": "category1",
+          "created_at": "2021-01-01T00:00:00Z",
+          "description": "This is a video"
+        },
+        "start_time_override": null
+      },
+      {
+        "id": "video_s6fa6j0ia1pp2ba3whnfe9arpf",
+        "service_account_id": "srvacc_k3t4yn0u4gpxzzyxpirbtrnpk",
+        "playback_uri": "https://media.thetavideoapi.com/org_baehxqkk26jqafxd924krg4p3cbe/srvacc_k3t4yn0u4gpxzzyxpirbtrnpk/video_s6fa6j0ia1pp2ba3whnfe9arpf/master.m3u8",
+        "player_uri": "https://player.thetavideoapi.com/video/video_s6fa6j0ia1pp2ba3whnfe9arpf",
+        "use_drm": null,
+        "duration": "5000",
+        "use_studio_drm": false,
+        "hls_playback_uri": null,
+        "dash_playback_uri": null,
+        "create_time": "2024-07-08T10:27:41.970Z",
+        "update_time": "2024-07-08T10:28:10.042Z",
+        "file_name": "test_video.mp4",
+        "state": "success",
+        "sub_state": "none",
+        "source_upload_id": "upload_p8k9cvb086tj7cit0tvm5dms4",
+        "source_uri": null,
+        "playback_policy": "public",
+        "progress": 100,
+        "error": null,
+        "resolution": null,
+        "metadata": {
+          "filename": ""
+        },
+        "start_time_override": null
+      },
+      {
+        "id": "video_560avs3bxmqpjpb5jjjxhrwrg8",
+        "service_account_id": "srvacc_k3t4yn0u4gpxzzyxpirbtrnpk",
+        "playback_uri": "https://media.thetavideoapi.com/org_baehxqkk26jqafxd924krg4p3cbe/srvacc_k3t4yn0u4gpxzzyxpirbtrnpk/video_560avs3bxmqpjpb5jjjxhrwrg8/master.m3u8",
+        "player_uri": "https://player.thetavideoapi.com/video/video_560avs3bxmqpjpb5jjjxhrwrg8",
+        "use_drm": null,
+        "duration": "5000",
+        "use_studio_drm": false,
+        "hls_playback_uri": null,
+        "dash_playback_uri": null,
+        "create_time": "2024-07-08T10:26:48.927Z",
+        "update_time": "2024-07-08T10:27:11.803Z",
+        "file_name": "test_video.mp4",
+        "state": "success",
+        "sub_state": "none",
+        "source_upload_id": "upload_08u7xxixvf7fa8c4p3kyy5fau",
+        "source_uri": null,
+        "playback_policy": "public",
+        "progress": 100,
+        "error": null,
+        "resolution": null,
+        "metadata": {
+          "filename": ""
+        },
+        "start_time_override": null
+      }
+    ],
+    "pagination": {
+      "model": "videos",
+      "count": 3,
+      "page": 1,
+      "number": 10,
+      "pages": 1
+    }
+  }
+}
