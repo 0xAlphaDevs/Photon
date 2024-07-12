@@ -27,13 +27,12 @@ const Livestream = () => {
     setStreamName(event.target.value);
   };
 
-  // TO DO :
+  // TO DO : Get the streamId dynamically
   const handleStartStream = () => {
     console.log('Stream Name:', streamName);
     const streamId = streamName.replace(/\s+/g, '-').toLowerCase();
     router.push(`${pathname}/${streamId}`);
   };
-
 
 
   return (

@@ -7,6 +7,8 @@ export const courses: Course[] = [
     description: "Learn the basics of React.",
     price: 50,
     streamId: "stream123",
+    creator: "John Doe",
+    thumbnailUrl: "/images/react-basics.jpg",
   },
   {
     id: "2",
@@ -14,6 +16,8 @@ export const courses: Course[] = [
     description: "Dive deeper into React with advanced concepts.",
     price: 75,
     streamId: "stream456",
+    creator: "Jane Smith",
+    thumbnailUrl: "/images/advanced-react.jpg",
   },
   {
     id: "3",
@@ -21,6 +25,8 @@ export const courses: Course[] = [
     description: "A beginner's guide to TypeScript.",
     price: 45,
     streamId: "stream789",
+    creator: "Alice Johnson",
+    thumbnailUrl: "/images/typescript-beginners.jpg",
   },
   {
     id: "4",
@@ -28,6 +34,8 @@ export const courses: Course[] = [
     description: "Learn the fundamentals of Node.js.",
     price: 60,
     streamId: "stream101",
+    creator: "Bob Brown",
+    thumbnailUrl: "/images/nodejs-fundamentals.jpg",
   },
   {
     id: "5",
@@ -35,6 +43,8 @@ export const courses: Course[] = [
     description: "Become a full-stack developer.",
     price: 100,
     streamId: "stream102",
+    creator: "Charlie Davis",
+    thumbnailUrl: "/images/full-stack-development.jpg",
   },
   {
     id: "6",
@@ -42,5 +52,7 @@ export const courses: Course[] = [
     description: "Master the art of CSS.",
     price: 40,
     streamId: "stream103",
+    creator: "Eve Clark",
+    thumbnailUrl: "/images/css-mastery.jpg",
   },
 ];

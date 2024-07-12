@@ -16,4 +16,11 @@ export interface Course {
   description: string;
   price: number;
   streamId: string;
+  creator: string;
+  thumbnailUrl: string;
+}
+
+export interface Video {
+  name: string;
+  description: string;
 }
