@@ -14,7 +14,7 @@ export default function ClientDashboard({
   return (
     <section className="grid grid-cols-12 w-full">
       <Navbar links={links} />
-      <div className="col-start-3 col-end-13 pr-10 pl-16"> {children}</div>
+      <div className="col-start-3 col-end-13 pr-10 pl-16 z-40"> {children}</div>
     </section>
   )
 }
