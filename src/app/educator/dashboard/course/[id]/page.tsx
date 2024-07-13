@@ -15,6 +15,7 @@ import {
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { videos } from '@/lib/videos';
+import { AddVideo } from '@/components/educator/addVideo';
 
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
@@ -35,7 +36,8 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       <div className='flex justify-end'>
         <div className='flex items-center gap-8'>
           <Button onClick={handleGoLive}>Go Live</Button>
-          <Button>+ Add Video</Button>
+          {/* <Button>+ Add Video</Button> */}
+          <AddVideo />
         </div>
       </div>
       {/* <div className='py-8 flex justify-center'>

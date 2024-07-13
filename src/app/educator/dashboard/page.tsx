@@ -13,6 +13,7 @@ import { Button } from '@/components/ui/button'
 import { courses } from '@/lib/courses'
 import { Course } from '@/lib/types'
 import { useRouter } from 'next/navigation'
+import { CreateCourse } from '@/components/educator/createCourse'
 
 
 const EducatorDashboard = () => {
@@ -27,7 +28,7 @@ const EducatorDashboard = () => {
     <div className="py-8">
       <div className='flex justify-between'>
         <p className='text-3xl font-medium'>Courses</p>
-        <Button>+ Create Course</Button>
+        <CreateCourse />
       </div>
       <div className='grid grid-cols-3 gap-8 py-16'>
         {courses.map((course: Course) => (
