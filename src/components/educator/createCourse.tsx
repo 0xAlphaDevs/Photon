@@ -15,7 +15,7 @@ export function CreateCourse() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>+ Create Course</Button>
+        <Button className="text-lg">+ Create Course</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

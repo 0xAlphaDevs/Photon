@@ -35,35 +35,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     <div className="py-8">
       <div className='flex justify-end'>
         <div className='flex items-center gap-8'>
-          <Button onClick={handleGoLive}>Go Live</Button>
-          {/* <Button>+ Add Video</Button> */}
+          <Button onClick={handleGoLive} className='text-lg'>Go Live</Button>
           <AddVideo />
         </div>
       </div>
-      {/* <div className='py-8 flex justify-center'>
-        <Card className='shadow-md w-[60%]'>
-          <CardContent className='py-4 flex gap-8 justify-between'>
-            <Image
-              src={course.thumbnailUrl}
-              width={100}
-              height={100}
-              alt="Course Thumbnail"
-              className='shadow-md p-3 rounded-[10px] w-[60%]'
-            />
-            <div className='w-full'>
-              <div className='mb-2'>
-                <p className='text-3xl font-semibold py-1'> {course.name}</p>
-                <p className='text-muted-foreground'>{course.description}</p>
-              </div>
-              <p className='text-lg py-4 flex items-center gap-4 '>Course Id :<Badge> {course.id} </Badge></p>
-              <p> <span className='text-muted-foreground'>Creator : </span> {course.creator}</p>
-              <p><span className='text-muted-foreground py-2'>Price : </span> ${course.price}</p>
-            </div>
-          </CardContent>
-        </Card>
-
-      </div > */}
-
       {/* Course Details */}
       <div className=' my-8'>
         <div className='flex justify-between items-center'>

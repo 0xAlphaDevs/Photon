@@ -42,8 +42,8 @@ const Livestream = () => {
         <div className='flex flex-col gap-32'>
           <p className='text-3xl font-medium'>Livestream</p>
           <div className='flex flex-col gap-4 items-center mt-24'>
-            <p>Create a live stream </p>
-            <Button onClick={handleNewStreamClick}>New Stream</Button>
+            <p className='text-4xl'>Create a live stream </p>
+            <Button onClick={handleNewStreamClick} className='text-xl font-semibold'>New Stream</Button>
           </div>
         </div>
       ) : (
@@ -71,7 +71,7 @@ const Livestream = () => {
               />
             </div>
             <div className='flex justify-center'>
-              <Button onClick={handleStartStream} className='ml-2'>
+              <Button onClick={handleStartStream} className='ml-2 text-lg'>
                 Start Stream
               </Button>
             </div>

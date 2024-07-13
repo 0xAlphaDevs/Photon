@@ -30,7 +30,7 @@ export function AddVideo() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>+ Add Video</Button>
+        <Button className="text-lg">+ Add Video</Button>
       </DialogTrigger>
       <DialogContent className="">
         <DialogHeader>
