@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { courses } from '@/lib/courses';
-import { Course } from '@/lib/types';
+import { Course, Video } from '@/lib/types';
 import { useRouter } from 'next/navigation';
 import {
   Card,
@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/card"
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
-import { videos } from '@/lib/videos';
 import { AddVideo } from '@/components/educator/addVideo';
 import { MoveLeftIcon } from 'lucide-react';
 
@@ -30,6 +29,10 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   const handleGoLive = () => {
     router.push(`/educator/dashboard/course/${course.id}/livestream`);
+  };
+
+  const handleViewVideo = (videoId: string) => {
+    router.push(`/educator/dashboard/course/${course.id}/video/${videoId}`);
   };
 
   const handleBackClick = () => {
@@ -69,14 +72,14 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       <div className=''>
         <p className='text-3xl font-semibold py-4'>Course Content</p>
         <div className='flex flex-col gap-4'>
-          {videos.map((video, index) => (
-            <Card key={index} className='shadow-md'>
+          {course.videos.map((video: Video) => (
+            <Card key={video.id} className='shadow-md'>
               <CardContent className='flex justify-between items-center pt-4'>
                 <div className='flex flex-col gap-2'>
                   <CardTitle>{video.name}</CardTitle>
                   <CardDescription>{video.description}</CardDescription>
                 </div>
-                <Button onClick={() => router.push(`/videos/${index}`)}>View</Button>
+                <Button onClick={() => handleViewVideo(video.id)}>View</Button>
               </CardContent>
             </Card>
           ))}

@@ -18,9 +18,11 @@ export interface Course {
   streamId: string;
   creator: string;
   thumbnailUrl: string;
+  videos: Video[];
 }
 
 export interface Video {
+  id: string;
   name: string;
   description: string;
 }

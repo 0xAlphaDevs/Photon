@@ -9,6 +9,18 @@ export const courses: Course[] = [
     streamId: "stream123",
     creator: "John Doe",
     thumbnailUrl: "/images/react-basics.jpg",
+    videos: [
+      {
+        id: "1",
+        name: "Intro to React",
+        description: "Introduction to React basics.",
+      },
+      {
+        id: "2",
+        name: "React Components",
+        description: "Understanding React components.",
+      },
+    ],
   },
   {
     id: "2",
@@ -18,6 +30,18 @@ export const courses: Course[] = [
     streamId: "stream456",
     creator: "Jane Smith",
     thumbnailUrl: "/images/advanced-react.jpg",
+    videos: [
+      {
+        id: "3",
+        name: "Advanced React Patterns",
+        description: "Explore advanced React patterns.",
+      },
+      {
+        id: "4",
+        name: "State Management",
+        description: "Advanced state management techniques.",
+      },
+    ],
   },
   {
     id: "3",
@@ -27,6 +51,18 @@ export const courses: Course[] = [
     streamId: "stream789",
     creator: "Alice Johnson",
     thumbnailUrl: "/images/typescript-beginners.jpg",
+    videos: [
+      {
+        id: "5",
+        name: "Intro to TypeScript",
+        description: "Introduction to TypeScript.",
+      },
+      {
+        id: "6",
+        name: "TypeScript Basics",
+        description: "Learn the basics of TypeScript.",
+      },
+    ],
   },
   {
     id: "4",
@@ -36,6 +72,18 @@ export const courses: Course[] = [
     streamId: "stream101",
     creator: "Bob Brown",
     thumbnailUrl: "/images/nodejs-fundamentals.jpg",
+    videos: [
+      {
+        id: "7",
+        name: "Intro to Node.js",
+        description: "Introduction to Node.js.",
+      },
+      {
+        id: "8",
+        name: "Node.js Modules",
+        description: "Understanding Node.js modules.",
+      },
+    ],
   },
   {
     id: "5",
@@ -45,6 +93,18 @@ export const courses: Course[] = [
     streamId: "stream102",
     creator: "Charlie Davis",
     thumbnailUrl: "/images/full-stack-development.jpg",
+    videos: [
+      {
+        id: "9",
+        name: "Full-Stack Basics",
+        description: "Introduction to full-stack development.",
+      },
+      {
+        id: "10",
+        name: "Building a Full-Stack App",
+        description: "Step-by-step guide to building a full-stack app.",
+      },
+    ],
   },
   {
     id: "6",
@@ -54,5 +114,13 @@ export const courses: Course[] = [
     streamId: "stream103",
     creator: "Eve Clark",
     thumbnailUrl: "/images/css-mastery.jpg",
+    videos: [
+      { id: "11", name: "Intro to CSS", description: "Introduction to CSS." },
+      {
+        id: "12",
+        name: "Advanced CSS Techniques",
+        description: "Advanced techniques in CSS.",
+      },
+    ],
   },
 ];
