@@ -1,12 +1,31 @@
+"use client"
+
 import React from 'react';
 import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
 import { Separator } from '@/components/ui/separator';
+import { useRouter } from 'next/navigation';
+import { MoveLeftIcon } from 'lucide-react';
 
 const StreamId = () => {
+  const router = useRouter()
+
+  const handleBackClick = () => {
+    router.back();
+  };
+
   return (
     <div className='py-8'>
-      <p className='text-3xl font-medium text-center'>Stream Name</p>
+      <div className='flex items-center justify-between'>
+        <div
+          className="h-6 w-6 cursor-pointer mr-2"
+          onClick={handleBackClick}
+        >
+          <MoveLeftIcon className='h-6 w-6' />
+        </div>
+        <p className='text-3xl font-medium'>Stream Name</p>
+        <div></div>
+      </div>
       <div className='flex gap-4 py-12 justify-center text-lg'>
         <div className='flex flex-col gap-4 text-right'>
           <p className=''>Stream Id : </p>

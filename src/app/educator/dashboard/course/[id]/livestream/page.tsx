@@ -23,8 +23,7 @@ const Livestream = () => {
   };
 
   const handleLivestreamBackClick = () => {
-    const newPathname = pathname.replace('/livestream', '');
-    router.push(newPathname);
+    router.back();
   };
 
 

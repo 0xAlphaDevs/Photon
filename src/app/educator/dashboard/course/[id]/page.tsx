@@ -36,7 +36,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   };
 
   const handleBackClick = () => {
-    router.push("/educator/dashboard")
+    router.back();
   };
 
   return (
