@@ -1,9 +1,7 @@
 "use client"
 
 import React from 'react';
-import { Label } from "@/components/ui/label";
 import { Select, SelectTrigger, SelectContent, SelectItem } from "@/components/ui/select";
-import { Separator } from '@/components/ui/separator';
 import { useRouter } from 'next/navigation';
 import { MoveLeftIcon } from 'lucide-react';
 
