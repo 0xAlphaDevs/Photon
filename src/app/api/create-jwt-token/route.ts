@@ -5,7 +5,7 @@ export async function GET(req: NextRequest, res: Response) {
   // const product = await req.json();
 
   try {
-    const result = { message: "Hello from the API!" };
+    const result = { jwt: createTvaJwt() };
     return NextResponse.json(result, { status: 200 });
   } catch (error) {
     console.error(error);

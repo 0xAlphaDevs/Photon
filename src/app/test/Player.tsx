@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+"use client";
+import { createJWT } from "@/lib/create-jwt";
+import React, { Component, useEffect } from "react";
 // @ts-ignore
 import { StudioPlayer } from "theta-video-api-drm-player";
 import "theta-video-api-drm-player/dist/index.css";
@@ -8,6 +10,7 @@ interface DRMPlayerProps {
 }
 
 export const DRMPlayer = ({ videoId }: DRMPlayerProps) => {
+  const [loading, setLoading] = React.useState(true);
   const walletConnectParams = {
     appName: "Photon",
     projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID,
@@ -25,7 +28,7 @@ export const DRMPlayer = ({ videoId }: DRMPlayerProps) => {
     jwt: "",
     autoconnect: true,
     useBeta: false,
-    // connectButtonAlt: connectButtonAlt,
+    connectButtonAlt: connectButtonAlt,
   };
 
   const videoJsParams = {
@@ -52,13 +55,39 @@ export const DRMPlayer = ({ videoId }: DRMPlayerProps) => {
     },
   };
 
+  const fetchData = async () => {
+    setLoading(true);
+    const result = await createJWT("data");
+    console.log("result", result);
+    // params.jwt = result.jwt;
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <StudioPlayer
-      videoId={videoId}
-      walletConnectParams={walletConnectParams}
-      params={params}
-      videoJsParams={videoJsParams}
-      events={events}
-    />
+    <>
+      {loading ? (
+        <div>
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          Loading... Loading...
+        </div>
+      ) : (
+        <StudioPlayer
+          videoId={videoId}
+          walletConnectParams={walletConnectParams}
+          params={params}
+          // videoJsParams={videoJsParams}
+          // events={events}
+        />
+      )}
+    </>
   );
 };

@@ -4,11 +4,21 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import ReactPlayer from "react-player/lazy";
 import { DRMPlayer } from "./Player";
+import { useReadContract, useWriteContract } from "wagmi";
+import { courseNftAbi } from "@/lib/abi/CourseNftAbi";
 
 const Test = () => {
   const [data, setData] = React.useState(null);
   const [videoBlob, setVideoBlob] = React.useState<Uint8Array | null>(null);
   const [videoFile, setVideoFile] = React.useState<File | null>(null);
+
+  const { data: name } = useReadContract({
+    address: "0x7Cc59C8b60F29dCe297Ef2c1160AE9F48321d825",
+    abi: courseNftAbi,
+    functionName: "description",
+  });
+
+  const { data: hash, error, isPending, writeContract } = useWriteContract();
 
   const [videos, setVideos] = React.useState([]);
 
@@ -113,27 +123,42 @@ const Test = () => {
       .then((response) => {
         console.log("After get videos call ..........");
         console.log(response.data);
-        setVideos(response.data.body.videos);
+        setVideos(response.data.body.videos.slice(0, 1));
       })
       .catch((error) => {
         console.log("Error getting videos", error);
       });
   };
 
+  const handleCoursePurchase = () => {
+    console.log("Purchase Course");
+
+    writeContract({
+      address: "0xDDF4CfEf307D1CC0FF7fFfE03284A9AD9c245dd2",
+      abi: courseNftAbi,
+      functionName: "purchaseCourse",
+      args: [1],
+      // value: BigInt(1),
+    });
+  };
+
   return (
     <div className="">
-      <form onSubmit={handleSubmit} className="flex justify-center">
+      {/* <form onSubmit={handleSubmit} className="flex justify-center">
         <input onChange={handleFileChange} accept="video/*" type="file" />
         <Button type="submit" disabled={!videoBlob}>
           Upload
         </Button>
-      </form>
+      </form> */}
 
-      <Button onClick={handleGetVideos}>Get Videos</Button>
+      {/* <Button onClick={handleGetVideos}>Get Videos</Button> */}
+      <div className="w-full">{name ? JSON.stringify(name) : "No data"}</div>
+
+      <Button onClick={handleCoursePurchase}>Purchase Course</Button>
 
       {/* <div className="w-full">{data ? JSON.stringify(data) : "No data"}</div> */}
 
-      <div className="grid grid-cols-3 gap-10">
+      {/* <div className="grid grid-cols-3 gap-10">
         {videos.map((video: any, index) => (
           // <ReactPlayer
           //   key={index}
@@ -143,7 +168,7 @@ const Test = () => {
           // />
           <DRMPlayer key={index} videoId={video.id} />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 };
