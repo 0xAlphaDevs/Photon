@@ -22,6 +22,12 @@ const Livestream = () => {
     setShowNewStreamForm(false);
   };
 
+  const handleLivestreamBackClick = () => {
+    const newPathname = pathname.replace('/livestream', '');
+    router.push(newPathname);
+  };
+
+
 
   const handleStreamNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setStreamName(event.target.value);
@@ -40,7 +46,15 @@ const Livestream = () => {
 
       {!showNewStreamForm ? (
         <div className='flex flex-col gap-32'>
-          <p className='text-3xl font-medium'>Livestream</p>
+          <div className='flex items-center gap-4'>
+            <div
+              className="h-6 w-6 cursor-pointer mr-2"
+              onClick={handleLivestreamBackClick}
+            >
+              <MoveLeftIcon className='h-6 w-6' />
+            </div>
+            <p className='text-3xl font-medium'>Livestream</p>
+          </div>
           <div className='flex flex-col gap-4 items-center mt-24'>
             <p className='text-4xl'>Create a live stream </p>
             <Button onClick={handleNewStreamClick} className='text-xl font-semibold'>New Stream</Button>

@@ -8,14 +8,11 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card"
 import Image from 'next/image';
 import { Badge } from '@/components/ui/badge';
 import { videos } from '@/lib/videos';
-import { AddVideo } from '@/components/educator/addVideo';
 import { MoveLeftIcon } from 'lucide-react';
 
 
@@ -28,27 +25,17 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     return <p>Course not found</p>;
   }
 
-  const handleGoLive = () => {
-    router.push(`/educator/dashboard/course/${course.id}/livestream`);
-  };
-
   const handleBackClick = () => {
-    router.push("/educator/dashboard")
+    router.push("/learner/purchases")
   };
 
   return (
     <div className="py-8">
-      <div className='flex justify-between'>
-        <div
-          className="h-6 w-6 cursor-pointer mr-2"
-          onClick={handleBackClick}
-        >
-          <MoveLeftIcon className='h-6 w-6' />
-        </div>
-        <div className='flex items-center gap-8'>
-          <Button onClick={handleGoLive} className='text-lg'>Go Live</Button>
-          <AddVideo />
-        </div>
+      <div
+        className="h-6 w-6 cursor-pointer mr-2"
+        onClick={handleBackClick}
+      >
+        <MoveLeftIcon className='h-6 w-6' />
       </div>
       {/* Course Details */}
       <div className=' my-8'>
