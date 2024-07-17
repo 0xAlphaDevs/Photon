@@ -2,8 +2,8 @@ import React from 'react'
 
 const LearnerPurchases = () => {
   return (
-    <div className="py-4">
-      <p className='text-lg font-medium'>My Purchases</p>
+    <div className="py-8">
+      <p className='text-3xl font-medium'>My Purchases</p>
     </div>
   )
 }
