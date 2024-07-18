@@ -1,4 +1,4 @@
-export const courseNftAbi = [
+export const PhotonCourseAbi = [
   {
     inputs: [
       {
