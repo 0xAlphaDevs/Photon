@@ -1,12 +1,12 @@
-"use client"
 
-import { ConnectKitButton } from "connectkit";
+
+import UserRegistery from "@/components/userRegistry";
 
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       Photon
-      <ConnectKitButton />
+      <UserRegistery />
     </main>
   );
 }
