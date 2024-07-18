@@ -1,5 +1,4 @@
-
-
+"use client";
 import UserRegistery from "@/components/userRegistry";
 
 export default function Home() {

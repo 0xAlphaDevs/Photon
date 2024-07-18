@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { ConnectKitButton } from 'connectkit'
-import { useAccount } from 'wagmi';
-import { Button } from "@/components/ui/button"
+import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { ConnectKitButton } from "connectkit";
+import { useAccount } from "wagmi";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,34 +12,40 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
+} from "@/components/ui/select";
 
 const UserRegistery = () => {
-  const [formData, setFormData] = useState({ userName: '', userType: '' });
+  const [formData, setFormData] = useState({ userName: "", userType: "" });
   const router = useRouter();
   const { address, isConnected } = useAccount();
 
   useEffect(() => {
     if (isConnected && address) {
-      const userData = localStorage.getItem(address) ? localStorage.getItem(address) : `{"userType" : ""}`
-      console.log("userData", userData);
+      let userData = localStorage.getItem(address) as string;
+      let user = { userType: "" };
+      if (!userData || userData === "undefined") {
+        user = { userType: "" };
+      }
+      try {
+        user = JSON.parse(userData);
+      } catch (error) {
+        console.error("error parsing user data", error);
+      }
 
-      if (userData) {
-        const { userType } = JSON.parse(userData);
-        if (userType === 'educator') {
-          router.push('/educator');
-        } else if (userType === 'learner') {
-          router.push('/learner');
-        }
+      const { userType } = user;
+      if (userType === "educator") {
+        router.push("/educator");
+      } else if (userType === "learner") {
+        router.push("/learner");
       }
     }
   }, [isConnected, address, router]);
@@ -49,10 +55,10 @@ const UserRegistery = () => {
     const userData = { ...formData, address };
     if (address) {
       localStorage.setItem(address, JSON.stringify(userData));
-      if (formData.userType === 'educator') {
-        router.push('/educator');
-      } else if (formData.userType === 'learner') {
-        router.push('/learner');
+      if (formData.userType === "educator") {
+        router.push("/educator");
+      } else if (formData.userType === "learner") {
+        router.push("/learner");
       }
     }
   };
@@ -84,14 +90,20 @@ const UserRegistery = () => {
                     placeholder="John"
                     className="col-span-3"
                     value={formData.userName}
-                    onChange={(e) => setFormData({ ...formData, userName: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, userName: e.target.value })
+                    }
                   />
                 </div>
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="userType" className='text-right'>UserType</Label>
+                  <Label htmlFor="userType" className="text-right">
+                    UserType
+                  </Label>
                   <Select
                     value={formData.userType}
-                    onValueChange={(value) => setFormData({ ...formData, userType: value })}
+                    onValueChange={(value) =>
+                      setFormData({ ...formData, userType: value })
+                    }
                   >
                     <SelectTrigger id="userType" className="col-span-3">
                       <SelectValue placeholder="Select" />
@@ -103,13 +115,15 @@ const UserRegistery = () => {
                   </Select>
                 </div>
               </div>
-              <Button className='w-full' type="submit">Register</Button>
+              <Button className="w-full" type="submit">
+                Register
+              </Button>
             </form>
           </DialogContent>
         </Dialog>
       )}
     </div>
-  )
-}
+  );
+};
 
 export default UserRegistery;
