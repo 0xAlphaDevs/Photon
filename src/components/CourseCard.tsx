@@ -18,6 +18,7 @@ interface Course {
   description: string;
   price: number;
   balance: number;
+  owner: string;
 }
 
 const CourseCard = ({ courseNftAddress }: any) => {
@@ -28,6 +29,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
     description: "loading...",
     price: 0,
     balance: 0,
+    owner: "loading...",
   });
   const { error, isPending, writeContract } = useWriteContract();
 
@@ -37,6 +39,12 @@ const CourseCard = ({ courseNftAddress }: any) => {
     address: courseNftAddress,
     abi: PhotonCourseAbi,
     functionName: "symbol",
+  });
+
+  const { data: owner } = useReadContract({
+    address: courseNftAddress,
+    abi: PhotonCourseAbi,
+    functionName: "owner",
   });
 
   const { data: description } = useReadContract({
@@ -79,8 +87,9 @@ const CourseCard = ({ courseNftAddress }: any) => {
       description: description as string,
       price: Number(price),
       balance: Number(nftBalance),
+      owner: owner as string,
     });
-  }, [description, name, price, courseId, nftBalance]);
+  }, [description, name, price, courseId, nftBalance, owner]);
 
   const handlePurchase = () => {
     console.log("purchase initiated", courseNftAddress, course.price);
@@ -102,13 +111,22 @@ const CourseCard = ({ courseNftAddress }: any) => {
     });
   };
 
-  console.log("allowance", allowance);
+  console.log("owner", owner);
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
       <CardHeader>
         <CardTitle>{course.name}</CardTitle>
-        <CardDescription>{course.description}</CardDescription>
+        <CardDescription>
+          <div>
+            <p> {course.description}</p>
+            <p className="font-semibold py-2 text-blue-500">
+              {" "}
+              Educator :{" "}
+              {course.owner.slice(0, 6) + "..." + course.owner.slice(-6)}
+            </p>
+          </div>
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between">
         <p>Course ID : {course.courseId}</p>
