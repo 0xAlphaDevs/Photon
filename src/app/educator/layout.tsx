@@ -1,9 +1,10 @@
 import Navbar from "@/components/navbar"
-import { CircleDollarSignIcon, VideoIcon } from "lucide-react";
+import { CircleDollarSignIcon, VideoIcon, WalletIcon } from "lucide-react";
 
 const links = [
   { href: '/educator/dashboard', text: 'My Courses', image: <VideoIcon className="h-6 w-6" /> },
   { href: '/educator/earnings', text: 'My Earnings', image: <CircleDollarSignIcon className="h-6 w-6" /> },
+  { href: '/educator/wallet', text: 'Wallet', image: <WalletIcon className="h-6 w-6" /> },
 ];
 
 export default function ClientDashboard({
