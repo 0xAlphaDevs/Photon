@@ -17,7 +17,7 @@ import {
   PhotonCourseFactoryAbi,
   PhotonCourseFactoryAddress,
 } from "@/lib/abi/PhotonCourseFactoryAbi";
-import CourseCard from "@/components/CourseCard";
+import CourseCard from "@/components/learner/CourseCard";
 
 const LearnerDashboard = () => {
   const [courses, setCourses] = React.useState<string[]>([]);
