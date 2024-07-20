@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from 'react'
+import React, { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -8,37 +8,44 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from '@/components/ui/button'
-import { courses } from '@/lib/courses'
-import { Course } from '@/lib/types'
-
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+// import { courses } from "@/lib/courses";
+import { Course } from "@/lib/types";
+import { useReadContract } from "wagmi";
+import {
+  PhotonCourseFactoryAbi,
+  PhotonCourseFactoryAddress,
+} from "@/lib/abi/PhotonCourseFactoryAbi";
+import CourseCard from "@/components/CourseCard";
 
 const LearnerDashboard = () => {
+  const [courses, setCourses] = React.useState<string[]>([]);
+
+  const { data: allCourses } = useReadContract({
+    address: PhotonCourseFactoryAddress,
+    abi: PhotonCourseFactoryAbi,
+    functionName: "getAllCourses",
+  });
+
+  console.log("allCourses", allCourses);
+
+  useMemo(() => {
+    if (allCourses) {
+      setCourses(allCourses as string[]);
+    }
+  }, [allCourses]);
 
   return (
     <div className="py-8">
-      <p className='text-3xl font-medium'>All Courses</p>
-      <div className='grid grid-cols-3 gap-8 py-16'>
-        {courses.map((course: Course) => (
-          <Card key={course.id} className='shadow-md'>
-            <CardHeader>
-              <CardTitle>{course.name}</CardTitle>
-              <CardDescription>{course.description}</CardDescription>
-            </CardHeader>
-            <CardContent className='flex justify-between'>
-              <p>Id: {course.id}</p>
-              <p>Price: ${course.price}</p>
-            </CardContent>
-            <CardFooter>
-              <Button className='w-full'>Buy Course</Button>
-            </CardFooter>
-          </Card>
+      <p className="text-3xl font-medium">All Courses</p>
+      <div className="grid grid-cols-3 gap-8 py-16">
+        {courses?.map((courseAddress: string) => (
+          <CourseCard key={courseAddress} courseNftAddress={courseAddress} />
         ))}
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-export default LearnerDashboard
+export default LearnerDashboard;
