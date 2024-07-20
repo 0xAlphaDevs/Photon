@@ -2,7 +2,7 @@ import { Course } from "./types";
 
 export const courses: Course[] = [
   {
-    id: "1",
+    id: "THETA101",
     name: "React Basics",
     description: "Learn the basics of React.",
     price: 50,
