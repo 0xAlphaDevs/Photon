@@ -9,8 +9,9 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
-import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import { useAccount, useReadContracts, useWriteContract } from "wagmi";
 import { PhotonTokenAbi, PhotonTokenAddress } from "@/lib/abi/PhotonToken";
+import { Skeleton } from "../ui/skeleton";
 
 interface Course {
   courseId: string;
@@ -33,64 +34,75 @@ const CourseCard = ({ courseNftAddress }: any) => {
   });
   const { error, isPending, writeContract } = useWriteContract();
 
-  // tokenid -> nft symbol , nft name, description, price
-
-  const { data: courseId } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "symbol",
-  });
-
-  const { data: owner } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "owner",
-  });
-
-  const { data: description } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "description",
-  });
-
-  const { data: name } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "name",
-  });
-
-  const { data: price } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "price",
-  });
-
-  const { data: nftBalance } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "balanceOf",
-    args: [address],
-  });
-
-  const { data: allowance } = useReadContract({
-    address: PhotonTokenAddress,
-    abi: PhotonTokenAbi,
-    functionName: "allowance",
-    args: [address, courseNftAddress],
+  const {
+    data: readContractsData,
+    error: readContractsError,
+    isLoading: readContractsLoading,
+  } = useReadContracts({
+    contracts: [
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "symbol",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "owner",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "description",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "name",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "price",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "balanceOf",
+        args: [address],
+      },
+      {
+        address: PhotonTokenAddress,
+        abi: PhotonTokenAbi,
+        functionName: "allowance",
+        args: [address, courseNftAddress],
+      },
+    ],
   });
 
   useMemo(() => {
-    setCourse({
-      ...course,
-      courseId: courseId as string,
-      name: name as string,
-      description: description as string,
-      price: Number(price),
-      balance: Number(nftBalance),
-      owner:
-        (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
-    });
-  }, [description, name, price, courseId, nftBalance, owner]);
+    if (!readContractsLoading && readContractsData) {
+      const [
+        courseId,
+        owner,
+        description,
+        name,
+        price,
+        nftBalance,
+        allowance,
+      ] = readContractsData.map((result) => result.result);
+
+      setCourse({
+        courseId: courseId as string,
+        name: name as string,
+        description: description as string,
+        price: Number(price),
+        balance: Number(nftBalance),
+        owner:
+          (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
+      });
+    }
+  }, [readContractsData, readContractsLoading]);
 
   const handlePurchase = () => {
     console.log("purchase initiated", courseNftAddress, course.price);
@@ -112,7 +124,32 @@ const CourseCard = ({ courseNftAddress }: any) => {
     });
   };
 
-  console.log("allowance", allowance);
+  const allowance = readContractsData ? readContractsData[6].result : 0;
+
+  if (readContractsLoading) {
+    return (
+      <Card key={courseNftAddress} className="shadow-md">
+        <CardHeader>
+          <CardTitle>
+            <Skeleton className="h-4 w-[200px]" />
+          </CardTitle>
+          <CardDescription>
+            <div className="flex flex-col gap-2">
+              <Skeleton className="h-4 w-[250px]" />
+              <Skeleton className="h-4 w-[200px]" />
+            </div>
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="flex justify-between">
+          <Skeleton className="h-4 w-[80px]" />
+          <Skeleton className="h-4 w-[80px]" />
+        </CardContent>
+        <CardFooter>
+          <Skeleton className="h-12 w-full" />
+        </CardFooter>
+      </Card>
+    );
+  }
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
@@ -120,16 +157,15 @@ const CourseCard = ({ courseNftAddress }: any) => {
         <CardTitle>{course.name}</CardTitle>
         <CardDescription>
           <div>
-            <p> {course.description}</p>
+            <p>{course.description}</p>
             <p className="font-semibold py-2 text-blue-500">
-              {" "}
               Educator : {course.owner}
             </p>
           </div>
         </CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between">
-        <p>Course ID : {course.courseId}</p>
+        <p>Course ID: {course.courseId}</p>
         <p>Price: {course.price / 10 ** 18} PHT</p>
       </CardContent>
       <CardFooter>
