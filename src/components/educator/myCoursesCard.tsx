@@ -86,7 +86,7 @@ const MyCoursesCard = ({ courseNftAddress }: any) => {
       </CardHeader>
       <CardContent className='flex justify-between'>
         <p>Course ID: {course.courseId}</p>
-        <p>Price: ${course.price}</p>
+        <p>Price: {course.price / 10 ** 18} PHT</p>
       </CardContent>
       <CardFooter>
         <Button className='w-full' onClick={() => handleViewCourse(course.courseId)}>View Course</Button>
