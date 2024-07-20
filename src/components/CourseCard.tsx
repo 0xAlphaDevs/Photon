@@ -10,12 +10,14 @@ import {
 import { Button } from "@/components/ui/button";
 import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
 import { useAccount, useReadContract, useWriteContract } from "wagmi";
+import { PhotonTokenAbi, PhotonTokenAddress } from "@/lib/abi/PhotonToken";
 
 interface Course {
   courseId: string;
   name: string;
   description: string;
   price: number;
+  balance: number;
 }
 
 const CourseCard = ({ courseNftAddress }: any) => {
@@ -25,8 +27,10 @@ const CourseCard = ({ courseNftAddress }: any) => {
     name: "loading...",
     description: "loading...",
     price: 0,
+    balance: 0,
   });
   const { error, isPending, writeContract } = useWriteContract();
+
   // tokenid -> nft symbol , nft name, description, price
 
   const { data: courseId } = useReadContract({
@@ -53,25 +57,47 @@ const CourseCard = ({ courseNftAddress }: any) => {
     functionName: "price",
   });
 
+  const { data: nftBalance } = useReadContract({
+    address: courseNftAddress,
+    abi: PhotonCourseAbi,
+    functionName: "balanceOf",
+    args: [address],
+  });
+
+  const { data: allowance } = useReadContract({
+    address: PhotonTokenAddress,
+    abi: PhotonTokenAbi,
+    functionName: "allowance",
+    args: [address, courseNftAddress],
+  });
+
   useMemo(() => {
     setCourse({
       ...course,
       courseId: courseId as string,
       name: name as string,
       description: description as string,
-      price: Number(price),
+      price: Number(price) / 10 ** 18,
+      balance: Number(nftBalance),
     });
   }, [description, name, price, courseId]);
 
   const handlePurchase = () => {
-    // writeContract({
-    //   address: "",
-    //   abi: PhotonCourseAbi,
-    //   functionName: "purchaseCourse",
-    //   args: [address],
-    // });
+    writeContract({
+      address: courseNftAddress,
+      abi: PhotonCourseAbi,
+      functionName: "purchaseCourse",
+    });
   };
 
+  const handleApprove = () => {
+    writeContract({
+      address: PhotonTokenAddress,
+      abi: PhotonTokenAbi,
+      functionName: "approve",
+      args: [courseNftAddress, course.price as number],
+    });
+  };
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
@@ -80,11 +106,23 @@ const CourseCard = ({ courseNftAddress }: any) => {
         <CardDescription>{course.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between">
-        <p>Course Id: {course.courseId}</p>
+        <p>Course ID : {course.courseId}</p>
         <p>Price: {course.price} PHT</p>
       </CardContent>
       <CardFooter>
-        <Button onClick={handlePurchase} className="w-full">Buy Course</Button>
+        {Number(allowance) === 0 ? (
+          <Button onClick={handleApprove} className="w-full">
+            Approve PHT spend
+          </Button>
+        ) : course.balance > 0 ? (
+          <Button className="w-full" variant={"success"} disabled>
+            Course Already Purchased
+          </Button>
+        ) : (
+          <Button onClick={handlePurchase} className="w-full">
+            Buy Course
+          </Button>
+        )}
       </CardFooter>
     </Card>
   );
