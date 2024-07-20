@@ -7,7 +7,7 @@ import Link from "next/link";
 import { ConnectKitButton } from "connectkit";
 import { usePathname } from "next/navigation";
 
-const Navbar: React.FC<NavbarProps> = ({ links }) => {
+const Navbar: React.FC<NavbarProps> = ({ links, supText }) => {
 
   const pathname = usePathname();
 
@@ -23,7 +23,11 @@ const Navbar: React.FC<NavbarProps> = ({ links }) => {
                 height={40}
                 alt="Picture of the author"
               />
-              <span className="text-3xl">Photon</span>
+              <span className="text-3xl">Photon
+                <sup className="text-sm font-semibold absolute ml-2 mt-4">
+                  {supText}
+                </sup>
+              </span>
             </Link>
           </div>
           <div className="flex-1">

@@ -8,6 +8,7 @@ export interface LinkItem {
 
 export interface NavbarProps {
   links: LinkItem[];
+  supText: string;
 }
 
 export interface Course {
