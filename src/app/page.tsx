@@ -1,4 +1,3 @@
-
 import UserRegistery from "@/components/userRegistry";
 import Image from "next/image";
 import {
@@ -15,11 +14,10 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Image src="/logo.png" width={150} height={150} alt="Logo" />
       <div className="flex flex-col items-center gap-2">
-        <h1 className="text-4xl font-bold text-primary">
-          Welcome to Photon !
-        </h1>
+        <h1 className="text-4xl font-bold text-primary">Welcome to Photon !</h1>
         <p className="text-muted-foreground">
-          Decentralised learning and teaching platform | Powered by Theta Network
+          Decentralised learning and teaching platform | Powered by Theta
+          Network
         </p>
       </div>
       <UserRegistery />
@@ -27,29 +25,19 @@ export default function Home() {
         <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
             <CardTitle className="text-center "></CardTitle>
-            <CardDescription className="text-center pt-1">
-
-            </CardDescription>
+            <CardDescription className="text-center pt-1"></CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center ">
-
-            </CardTitle>
-            <CardDescription className="text-center pt-1">
-
-            </CardDescription>
+            <CardTitle className="text-center "></CardTitle>
+            <CardDescription className="text-center pt-1"></CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center">
-
-            </CardTitle>
-            <CardDescription className="text-center pt-1">
-
-            </CardDescription>
+            <CardTitle className="text-center"></CardTitle>
+            <CardDescription className="text-center pt-1"></CardDescription>
           </CardHeader>
         </Card>
       </div>

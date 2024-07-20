@@ -77,10 +77,10 @@ const CourseCard = ({ courseNftAddress }: any) => {
       courseId: courseId as string,
       name: name as string,
       description: description as string,
-      price: Number(price) / 10 ** 18,
+      price: Number(price),
       balance: Number(nftBalance),
     });
-  }, [description, name, price, courseId]);
+  }, [description, name, price, courseId, nftBalance]);
 
   const handlePurchase = () => {
     writeContract({
@@ -107,16 +107,16 @@ const CourseCard = ({ courseNftAddress }: any) => {
       </CardHeader>
       <CardContent className="flex justify-between">
         <p>Course ID : {course.courseId}</p>
-        <p>Price: {course.price} PHT</p>
+        <p>Price: {course.price / 10 ** 18} PHT</p>
       </CardContent>
       <CardFooter>
-        {Number(allowance) === 0 ? (
-          <Button onClick={handleApprove} className="w-full">
-            Approve PHT spend
-          </Button>
-        ) : course.balance > 0 ? (
+        {course.balance > 0 ? (
           <Button className="w-full" variant={"success"} disabled>
             Course Already Purchased
+          </Button>
+        ) : Number(allowance) < course.price ? (
+          <Button onClick={handleApprove} className="w-full">
+            Approve PHT spend
           </Button>
         ) : (
           <Button onClick={handlePurchase} className="w-full">

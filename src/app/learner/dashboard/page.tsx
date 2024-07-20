@@ -28,8 +28,6 @@ const LearnerDashboard = () => {
     functionName: "getAllCourses",
   });
 
-  console.log("allCourses", allCourses);
-
   useMemo(() => {
     if (allCourses) {
       setCourses(allCourses as string[]);

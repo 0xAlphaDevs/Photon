@@ -12,7 +12,7 @@ const LearnerWallet = () => {
 
   const { error, isPending, writeContract } = useWriteContract();
 
-  const { data: balance } = useReadContract({
+  const { data: balance, isLoading } = useReadContract({
     address: PhotonTokenAddress,
     abi: PhotonTokenAbi,
     functionName: "balanceOf",
@@ -39,12 +39,12 @@ const LearnerWallet = () => {
     <div className="flex flex-col gap-10 p-16">
       <div className="flex flex-col gap-4 justify-center items-center ">
         <div className="text-4xl font-semibold">Your Holdings</div>
-        <div className="border border-solid border-slate-800 w-full" />
+        {/* <div className="border border-solid border-slate-800 w-full" /> */}
       </div>
       <div className="flex justify-around">
         <Card className="flex flex-col gap-4 p-4 shadow-md w-96">
           <CardDescription> Current balance </CardDescription>
-          {!phtBalance ? (
+          {isLoading ? (
             <Skeleton className="h-8 w-28 rounded-lg" />
           ) : (
             <CardTitle> {phtBalance} PHT</CardTitle>
@@ -52,8 +52,12 @@ const LearnerWallet = () => {
         </Card>
       </div>
       <div className="flex justify-center">
-        {!phtBalance ? (
+        {isLoading ? (
           <Skeleton className="h-12 w-28 rounded-lg" />
+        ) : isPending ? (
+          <Button className="text-lg" disabled>
+            Minting in progress...
+          </Button>
         ) : (
           <Button onClick={handlePHTMint} className="text-lg">
             Mint 100 PHT
