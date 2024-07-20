@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import ReactPlayer from "react-player/lazy";
 import { DRMPlayer } from "./Player";
 import { useReadContract, useWriteContract } from "wagmi";
-import { courseNftAbi } from "@/lib/abi/CourseNftAbi";
+import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
 
 const Test = () => {
   const [data, setData] = React.useState(null);
@@ -13,9 +13,9 @@ const Test = () => {
   const [videoFile, setVideoFile] = React.useState<File | null>(null);
 
   const { data: name } = useReadContract({
-    address: "0x7Cc59C8b60F29dCe297Ef2c1160AE9F48321d825",
-    abi: courseNftAbi,
-    functionName: "description",
+    address: "0xDDF4CfEf307D1CC0FF7fFfE03284A9AD9c245dd2",
+    abi: PhotonCourseAbi,
+    functionName: "getCourseEarnings",
   });
 
   const { data: hash, error, isPending, writeContract } = useWriteContract();
@@ -135,10 +135,10 @@ const Test = () => {
 
     writeContract({
       address: "0xDDF4CfEf307D1CC0FF7fFfE03284A9AD9c245dd2",
-      abi: courseNftAbi,
+      abi: PhotonCourseAbi,
       functionName: "purchaseCourse",
-      args: [1],
-      // value: BigInt(1),
+      // args: [1],
+      value: BigInt(1),
     });
   };
 

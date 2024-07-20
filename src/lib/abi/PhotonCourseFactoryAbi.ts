@@ -1,3 +1,6 @@
+export const PhotonCourseFactoryAddress =
+  "0x0c65cd582e4921a0083bd6e2e1f75892a810bef4";
+
 export const PhotonCourseFactoryAbi = [
   {
     anonymous: false,
@@ -39,6 +42,11 @@ export const PhotonCourseFactoryAbi = [
         internalType: "uint256",
         name: "price",
         type: "uint256",
+      },
+      {
+        internalType: "address",
+        name: "photonTokenAddress",
+        type: "address",
       },
     ],
     name: "createCourse",
