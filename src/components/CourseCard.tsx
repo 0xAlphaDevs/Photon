@@ -87,7 +87,8 @@ const CourseCard = ({ courseNftAddress }: any) => {
       description: description as string,
       price: Number(price),
       balance: Number(nftBalance),
-      owner: owner as string,
+      owner:
+        (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
     });
   }, [description, name, price, courseId, nftBalance, owner]);
 
@@ -98,7 +99,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
       address: courseNftAddress,
       abi: PhotonCourseAbi,
       functionName: "purchaseCourse",
-      args: [],
+      // args: [],
     });
   };
 
@@ -107,11 +108,11 @@ const CourseCard = ({ courseNftAddress }: any) => {
       address: PhotonTokenAddress,
       abi: PhotonTokenAbi,
       functionName: "approve",
-      args: [courseNftAddress, course.price as number],
+      args: [courseNftAddress, (course.price as number) + 1],
     });
   };
 
-  console.log("owner", owner);
+  console.log("allowance", allowance);
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
@@ -122,8 +123,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
             <p> {course.description}</p>
             <p className="font-semibold py-2 text-blue-500">
               {" "}
-              Educator :{" "}
-              {course.owner.slice(0, 6) + "..." + course.owner.slice(-6)}
+              Educator : {course.owner}
             </p>
           </div>
         </CardDescription>
