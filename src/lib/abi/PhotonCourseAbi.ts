@@ -26,6 +26,11 @@ export const PhotonCourseAbi = [
         name: "_creator",
         type: "address",
       },
+      {
+        internalType: "address",
+        name: "_photonToken",
+        type: "address",
+      },
     ],
     stateMutability: "nonpayable",
     type: "constructor",
@@ -458,6 +463,19 @@ export const PhotonCourseAbi = [
   },
   {
     inputs: [],
+    name: "photonToken",
+    outputs: [
+      {
+        internalType: "contract IERC20",
+        name: "",
+        type: "address",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "price",
     outputs: [
       {
@@ -479,7 +497,7 @@ export const PhotonCourseAbi = [
         type: "uint256",
       },
     ],
-    stateMutability: "payable",
+    stateMutability: "nonpayable",
     type: "function",
   },
   {

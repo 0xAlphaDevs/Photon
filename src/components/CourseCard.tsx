@@ -83,10 +83,13 @@ const CourseCard = ({ courseNftAddress }: any) => {
   }, [description, name, price, courseId, nftBalance]);
 
   const handlePurchase = () => {
+    console.log("purchase initiated", courseNftAddress, course.price);
+
     writeContract({
       address: courseNftAddress,
       abi: PhotonCourseAbi,
       functionName: "purchaseCourse",
+      args: [],
     });
   };
 
@@ -98,6 +101,8 @@ const CourseCard = ({ courseNftAddress }: any) => {
       args: [courseNftAddress, course.price as number],
     });
   };
+
+  console.log("allowance", allowance);
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
