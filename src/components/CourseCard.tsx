@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
-import { useReadContract } from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 
 interface Course {
   courseId: string;
@@ -19,13 +19,21 @@ interface Course {
 }
 
 const CourseCard = ({ courseNftAddress }: any) => {
+  const { address } = useAccount();
   const [course, setCourse] = React.useState<Course>({
-    courseId: "THETA101",
+    courseId: "loading...",
     name: "loading...",
     description: "loading...",
-    price: 25,
+    price: 0,
   });
+  const { error, isPending, writeContract } = useWriteContract();
   // tokenid -> nft symbol , nft name, description, price
+
+  const { data: courseId } = useReadContract({
+    address: courseNftAddress,
+    abi: PhotonCourseAbi,
+    functionName: "symbol",
+  });
 
   const { data: description } = useReadContract({
     address: courseNftAddress,
@@ -39,13 +47,31 @@ const CourseCard = ({ courseNftAddress }: any) => {
     functionName: "name",
   });
 
+  const { data: price } = useReadContract({
+    address: courseNftAddress,
+    abi: PhotonCourseAbi,
+    functionName: "price",
+  });
+
   useMemo(() => {
     setCourse({
       ...course,
+      courseId: courseId as string,
       name: name as string,
       description: description as string,
+      price: Number(price),
     });
-  }, [description, name]);
+  }, [description, name, price, courseId]);
+
+  const handlePurchase = () => {
+    // writeContract({
+    //   address: "",
+    //   abi: PhotonCourseAbi,
+    //   functionName: "purchaseCourse",
+    //   args: [address],
+    // });
+  };
+
 
   return (
     <Card key={courseNftAddress} className="shadow-md">
@@ -54,11 +80,11 @@ const CourseCard = ({ courseNftAddress }: any) => {
         <CardDescription>{course.description}</CardDescription>
       </CardHeader>
       <CardContent className="flex justify-between">
-        <p>Id: {course.courseId}</p>
-        <p>Price: ${course.price}</p>
+        <p>Course Id: {course.courseId}</p>
+        <p>Price: {course.price} PHT</p>
       </CardContent>
       <CardFooter>
-        <Button className="w-full">Buy Course</Button>
+        <Button onClick={handlePurchase} className="w-full">Buy Course</Button>
       </CardFooter>
     </Card>
   );
