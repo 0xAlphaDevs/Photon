@@ -108,7 +108,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
       address: PhotonTokenAddress,
       abi: PhotonTokenAbi,
       functionName: "approve",
-      args: [courseNftAddress, (course.price as number) + 1],
+      args: [courseNftAddress, (course.price as number) + 1 * 10 ** 18],
     });
   };
 

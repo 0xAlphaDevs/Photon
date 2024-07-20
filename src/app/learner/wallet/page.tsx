@@ -21,7 +21,7 @@ const LearnerWallet = () => {
 
   useMemo(() => {
     if (balance) {
-      const phtBalance = Number(balance); // TODO: Convert to PHT by dividing by 10^18
+      const phtBalance = Number(balance) / 10 ** 18;
       setPhtBalance(phtBalance);
     }
   }, [balance]);
@@ -31,7 +31,7 @@ const LearnerWallet = () => {
       address: PhotonTokenAddress,
       abi: PhotonTokenAbi,
       functionName: "mint",
-      args: [address, 100],
+      args: [address, 100 * 10 ** 18],
     });
   };
 

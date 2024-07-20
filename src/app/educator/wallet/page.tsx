@@ -19,7 +19,7 @@ const EducatorWallet = () => {
   useMemo(() => {
     console.log("balance", balance);
     if (balance) {
-      const phtBalance = Number(balance); // TODO: Convert to PHT by dividing by 10^18
+      const phtBalance = Number(balance) / 10 ** 18;
       setPhtBalance(phtBalance);
     }
   }, [balance]);
