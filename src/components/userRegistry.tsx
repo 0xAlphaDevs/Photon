@@ -35,11 +35,15 @@ const UserRegistery = () => {
     if (isConnected) {
       let userData = localStorage.getItem(address as string);
       let user = { userType: "" };
-      if (!userData || userData === "undefined") {
+      if (
+        !userData ||
+        userData === "undefined" ||
+        userData === "null" ||
+        userData === ""
+      ) {
         user = { userType: "" };
         setShowRegister(true);
-      }
-      else {
+      } else {
         try {
           user = JSON.parse(userData);
           const { userType } = user;
@@ -52,11 +56,10 @@ const UserRegistery = () => {
           console.error("error parsing user data", error);
         }
       }
-
     } else {
       setShowRegister(false);
     }
-  }, [isConnected]);
+  }, [isConnected, address]);
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
