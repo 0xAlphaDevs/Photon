@@ -200,7 +200,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
             Approve PHT spend
           </Button>
         ) : (
-          <Button onClick={handlePurchase} className="w-full">
+          <Button onClick={handlePurchase} className="w-full" disabled={isPending}>
             {isPending ? "Purchasing..." : "Buy Course"}
           </Button>
         )}
