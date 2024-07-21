@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -7,15 +7,109 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { EarningChart } from "./earningChart";
+import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
+import { useReadContracts } from "wagmi";
 
-const ProfileOverview = ({ allCourses }: { allCourses: any[] }) => {
-  const courses = allCourses;
-  console.log(courses);
-  //TO DO: Add logic to calculate total sales and revenue
+const ProfileOverview = ({ allCourses }: { allCourses: [] }) => {
+  const courses: [] = allCourses;
+  const [totalSales, setTotalSales] = React.useState(27);
+  const [courseEarnings, setCourseEarnings] = React.useState([
+    { courseId: "THETA101", earnings: 100 },
+    { courseId: "THETA105", earnings: 500 },
+  ]);
+  const [totalEarnings, setTotalEarnings] = React.useState(0);
+
+  const earningsContractCalls = courses.map((course: string) => ({
+    address: course as `0x${string}`,
+    abi: PhotonCourseAbi,
+    functionName: "getCourseEarnings",
+  }));
+
+  const totalSalesContractCalls = courses.map((course: string) => ({
+    address: course as `0x${string}`,
+    abi: PhotonCourseAbi,
+    functionName: "totalSupply",
+  }));
+
+  const courseSymbolContractCalls = courses.map((course: string) => ({
+    address: course as `0x${string}`,
+    abi: PhotonCourseAbi,
+    functionName: "symbol",
+  }));
+
+  const {
+    data: earningsData,
+    error: readEarningsError,
+    isLoading: readEarningsLoading,
+  } = useReadContracts({
+    //@ts-ignore
+    contracts: earningsContractCalls,
+  });
+
+  const {
+    data: totalSalesData,
+    error: readTotalSalesError,
+    isLoading: readTotalSalesLoading,
+  } = useReadContracts({
+    //@ts-ignore
+    contracts: totalSalesContractCalls,
+  });
+
+  const {
+    data: courseSymbolData,
+    error: readCourseSymbolError,
+    isLoading: readCourseSymbolLoading,
+  } = useReadContracts({
+    //@ts-ignore
+    contracts: courseSymbolContractCalls,
+  });
+
+  useMemo(() => {
+    // console.log("earnings data :", earningsData);
+
+    if (
+      !readEarningsLoading &&
+      earningsData &&
+      !readCourseSymbolLoading &&
+      courseSymbolData
+    ) {
+      // sum all the earnings
+      const totalEarnings = earningsData.reduce((acc, contract) => {
+        return acc + Number(contract.result) / 10 ** 18;
+      }, 0);
+
+      const courseEarnings = earningsData.map((contract, index) => {
+        return {
+          courseId: courseSymbolData[index].result as string,
+          earnings: Number(contract.result) / 10 ** 18,
+        };
+      });
+
+      // setCourseEarnings(courseEarnings);
+
+      setTotalEarnings(totalEarnings);
+    }
+  }, [
+    earningsData,
+    readEarningsLoading,
+    courseSymbolData,
+    readCourseSymbolLoading,
+  ]);
+
+  useMemo(() => {
+    //
+    if (!readTotalSalesLoading && totalSalesData) {
+      // sum all the total sales
+      const totalSales = totalSalesData.reduce((acc, contract) => {
+        return acc + Number(contract.result);
+      }, 0);
+      setTotalSales(totalSales);
+    }
+  }, [totalSalesData, readTotalSalesLoading]);
 
   return (
     <div className="flex gap-8 w-full my-8">
-      <Card className="w-[50%] h-60">
+      <Card className="w-[50%] ">
         <CardHeader>
           <CardTitle>Profile Overview</CardTitle>
           <CardDescription>
@@ -29,17 +123,23 @@ const ProfileOverview = ({ allCourses }: { allCourses: any[] }) => {
           </div>
           <div className="flex items-center gap-4">
             <p>Total Sales : </p>
-            <p className="font-bold">26</p>
+            <p className="font-bold">{totalSales}</p>
           </div>
           <div className="flex items-center gap-4">
             <p>Total Revenue : </p>
-            <p className="font-bold"> 3400 PHT</p>
+            <p className="font-bold"> {totalEarnings} PHT</p>
           </div>
         </CardContent>
       </Card>
-      <Card className="w-[50%] h-60">
+      <Card className="w-[50%] ">
+        <CardHeader>
+          <CardTitle>Course Wise Earnings</CardTitle>
+          <CardDescription>
+            Below are the details of your course wise earnings
+          </CardDescription>
+        </CardHeader>
         <CardContent className="">
-          <EarningChart />
+          <EarningChart courseEarnings={courseEarnings} />
         </CardContent>
       </Card>
     </div>

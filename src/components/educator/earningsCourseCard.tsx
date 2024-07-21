@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -6,13 +6,75 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
+import { useAccount, useReadContracts, useWriteContract } from "wagmi";
+
+interface Course {
+  name: string;
+  description: string;
+  symbol: string;
+  courseEarnings: number;
+}
 
 const EarningCourseCard = ({ courseNftAddress }: any) => {
-  // TO DO: Fetch course details from the blockchain
-  const course = {
+  const { address } = useAccount();
+  const [course, setCourse] = React.useState<Course>({
     name: "loading...",
-    code: "loading...",
-    earnings: "loading...",
+    description: "loading...",
+    symbol: "loading...",
+    courseEarnings: 0,
+  });
+  const { error, isPending, writeContract } = useWriteContract();
+  const {
+    data: contractsData,
+    error: readContractsError,
+    isLoading: readContractsLoading,
+  } = useReadContracts({
+    contracts: [
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "name",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "description",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "symbol",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "getCourseEarnings",
+      },
+    ],
+  });
+
+  useMemo(() => {
+    if (!readContractsLoading && contractsData) {
+      const [name, description, symbol, courseEarnings] = contractsData.map(
+        (result) => result.result
+      );
+      setCourse({
+        ...course,
+        name: name as string,
+        description: description as string,
+        symbol: symbol as string,
+        courseEarnings: Number(courseEarnings) / 10 ** 18,
+      });
+    }
+  }, [contractsData, readContractsLoading]);
+
+  const handleWithdrawEarnings = () => {
+    writeContract({
+      address: courseNftAddress,
+      abi: PhotonCourseAbi,
+      functionName: "withdrawCourseEarnings",
+    });
   };
 
   return (
@@ -20,12 +82,20 @@ const EarningCourseCard = ({ courseNftAddress }: any) => {
       <CardContent className="flex justify-between items-center pt-4">
         <div className="flex flex-col gap-2">
           <CardTitle>{course.name}</CardTitle>
+          <CardDescription>
+            Course Description : {course.description}
+          </CardDescription>
           <CardDescription className="flex gap-40">
-            <p>Course code :</p>
-            <p>Total earnings :</p>
+            <p>
+              Course code : <strong className="text-lg">{course.symbol}</strong>
+            </p>
+            <p>
+              Course earnings :{" "}
+              <strong className="text-lg">{course.courseEarnings} PHT</strong>
+            </p>
           </CardDescription>
         </div>
-        <Button>Withdraw Earnings</Button>
+        <Button onClick={handleWithdrawEarnings}>Withdraw Earnings</Button>
       </CardContent>
     </Card>
   );
