@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useMemo } from "react";
-import { useRouter } from "next/navigation";
 import {
   PhotonCourseFactoryAbi,
   PhotonCourseFactoryAddress,
@@ -14,7 +13,7 @@ const LearnerPurchases = () => {
 
   const [courses, setCourses] = React.useState<string[]>([]);
 
-  const { data: purchasedCourses } = useReadContract({
+  const { data: purchasedCourses, isLoading } = useReadContract({
     address: PhotonCourseFactoryAddress,
     abi: PhotonCourseFactoryAbi,
     functionName: "getAllCoursesPurchasedByLearner",
@@ -23,9 +22,15 @@ const LearnerPurchases = () => {
 
   useMemo(() => {
     console.log("Purchased Courses :", purchasedCourses);
+    const zeroAddress = "0x0000000000000000000000000000000000000000";
 
     if (purchasedCourses) {
-      setCourses(purchasedCourses as string[]);
+      const courses = purchasedCourses as string[];
+      const filteredCourses = courses.filter(
+        (course: string) => course !== zeroAddress
+      );
+
+      setCourses(filteredCourses as string[]);
     }
   }, [purchasedCourses]);
 
@@ -33,12 +38,19 @@ const LearnerPurchases = () => {
     <div className="py-8">
       <p className="text-3xl font-medium">My Purchases</p>
       <div className="grid grid-cols-3 gap-8 py-16">
-        {courses?.map((courseAddress: string) => (
-          <PurchasedCourseCard
-            key={courseAddress}
-            courseNftAddress={courseAddress}
-          />
-        ))}
+        {isLoading ? (
+          <p>Loading...</p>
+        ) : courses.length > 0 ? (
+          courses?.map((courseAddress: string) => (
+            <PurchasedCourseCard
+              key={courseAddress}
+              courseNftAddress={courseAddress}
+            />
+          ))
+        ) : (
+          // TO DO
+          <p className=" flex justify-center items-center ">No Purchases Yet</p>
+        )}
       </div>
     </div>
   );
