@@ -31,7 +31,7 @@ const EducatorDashboard = () => {
         <p className="text-3xl font-medium">Courses</p>
         <CreateCourse />
       </div>
-      <div className="grid grid-cols-3 gap-8 py-16">
+      <div className="flex flex-col gap-8 py-16">
         {courses.map((courseAddress: string) => (
           <MyCoursesCard key={courseAddress} courseNftAddress={courseAddress} />
         ))}
