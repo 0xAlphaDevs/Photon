@@ -27,28 +27,36 @@ const UserRegistery = () => {
   const [formData, setFormData] = useState({ userName: "", userType: "" });
   const router = useRouter();
   const { address, isConnected } = useAccount();
+  const [showRegister, setShowRegister] = useState(false);
 
   useEffect(() => {
-    if (isConnected && address) {
-      let userData = localStorage.getItem(address) as string;
+    console.log("Use effect called");
+
+    if (isConnected) {
+      let userData = localStorage.getItem(address as string);
       let user = { userType: "" };
       if (!userData || userData === "undefined") {
         user = { userType: "" };
+        setShowRegister(true);
       }
-      try {
-        user = JSON.parse(userData);
-      } catch (error) {
-        console.error("error parsing user data", error);
+      else {
+        try {
+          user = JSON.parse(userData);
+          const { userType } = user;
+          if (userType === "educator") {
+            router.push("/educator");
+          } else if (userType === "learner") {
+            router.push("/learner");
+          }
+        } catch (error) {
+          console.error("error parsing user data", error);
+        }
       }
 
-      const { userType } = user;
-      if (userType === "educator") {
-        router.push("/educator");
-      } else if (userType === "learner") {
-        router.push("/learner");
-      }
+    } else {
+      setShowRegister(false);
     }
-  }, [isConnected, address, router]);
+  }, [isConnected]);
 
   const handleRegister = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -65,8 +73,9 @@ const UserRegistery = () => {
 
   return (
     <div>
-      {!isConnected ? (
-        <ConnectKitButton />
+      <ConnectKitButton />
+      {!showRegister ? (
+        <></>
       ) : (
         <Dialog>
           <DialogTrigger asChild>

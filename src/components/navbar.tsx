@@ -1,15 +1,45 @@
 "use client"
 
-import React from "react";
+import React, { useEffect } from "react";
 import { NavbarProps } from "@/lib/types";
 import Image from "next/image";
 import Link from "next/link";
 import { ConnectKitButton } from "connectkit";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useAccount } from "wagmi";
 
 const Navbar: React.FC<NavbarProps> = ({ links, supText }) => {
 
   const pathname = usePathname();
+  const { isDisconnected, isConnected, address } = useAccount();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isDisconnected) {
+      router.push("/")
+    }
+    else {
+      if (isConnected && address) {
+        let userData = localStorage.getItem(address) as string;
+        let user = { userType: "" };
+        if (!userData || userData === "undefined") {
+          user = { userType: "" };
+        }
+        try {
+          user = JSON.parse(userData);
+        } catch (error) {
+          console.error("error parsing user data", error);
+        }
+
+        const { userType } = user;
+        if (userType === "educator") {
+          router.push("/educator");
+        } else if (userType === "learner") {
+          router.push("/learner");
+        }
+      }
+    }
+  }, [isDisconnected]);
 
   return (
     <div className="grid fixed top-0 left-0 min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
