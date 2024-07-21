@@ -75,64 +75,67 @@ const UserRegistery = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center items-center gap-1">
       <ConnectKitButton />
       {!showRegister ? (
         <></>
       ) : (
-        <Dialog>
-          <DialogTrigger asChild>
-            <Button variant="outline">Register</Button>
-          </DialogTrigger>
-          <DialogContent className="sm:max-w-[425px]">
-            <DialogHeader>
-              <DialogTitle>Register</DialogTitle>
-              <DialogDescription>
-                Provide the details below to get started with Photon
-              </DialogDescription>
-            </DialogHeader>
-            <form onSubmit={handleRegister}>
-              <div className="grid gap-4 py-4">
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="userName" className="text-right">
-                    Username
-                  </Label>
-                  <Input
-                    id="userName"
-                    placeholder="John"
-                    className="col-span-3"
-                    value={formData.userName}
-                    onChange={(e) =>
-                      setFormData({ ...formData, userName: e.target.value })
-                    }
-                  />
+        <>
+          <p className="text-muted-foreground text-sm">You are not registered. Please register yourself to get started</p>
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button variant="outline">Register</Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-[425px]">
+              <DialogHeader>
+                <DialogTitle>Register</DialogTitle>
+                <DialogDescription>
+                  Provide the details below to get started with Photon
+                </DialogDescription>
+              </DialogHeader>
+              <form onSubmit={handleRegister}>
+                <div className="grid gap-4 py-4">
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="userName" className="text-right">
+                      Username
+                    </Label>
+                    <Input
+                      id="userName"
+                      placeholder="John"
+                      className="col-span-3"
+                      value={formData.userName}
+                      onChange={(e) =>
+                        setFormData({ ...formData, userName: e.target.value })
+                      }
+                    />
+                  </div>
+                  <div className="grid grid-cols-4 items-center gap-4">
+                    <Label htmlFor="userType" className="text-right">
+                      UserType
+                    </Label>
+                    <Select
+                      value={formData.userType}
+                      onValueChange={(value) =>
+                        setFormData({ ...formData, userType: value })
+                      }
+                    >
+                      <SelectTrigger id="userType" className="col-span-3">
+                        <SelectValue placeholder="Select" />
+                      </SelectTrigger>
+                      <SelectContent position="popper">
+                        <SelectItem value="educator">Educator</SelectItem>
+                        <SelectItem value="learner">Learner</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
-                <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="userType" className="text-right">
-                    UserType
-                  </Label>
-                  <Select
-                    value={formData.userType}
-                    onValueChange={(value) =>
-                      setFormData({ ...formData, userType: value })
-                    }
-                  >
-                    <SelectTrigger id="userType" className="col-span-3">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="educator">Educator</SelectItem>
-                      <SelectItem value="learner">Learner</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-              </div>
-              <Button className="w-full" type="submit">
-                Register
-              </Button>
-            </form>
-          </DialogContent>
-        </Dialog>
+                <Button className="w-full" type="submit">
+                  Register
+                </Button>
+              </form>
+            </DialogContent>
+          </Dialog>
+        </>
       )}
     </div>
   );
