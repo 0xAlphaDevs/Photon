@@ -121,7 +121,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
       toast({
         title: "Course purchase Successful",
         description: "Your purchase has been completed successfully",
-        variant: "success",
+        variant: "default",
       });
     }
   }, [isSuccess]);

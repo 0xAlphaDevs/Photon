@@ -18,27 +18,6 @@ const Navbar: React.FC<NavbarProps> = ({ links, supText }) => {
     if (isDisconnected) {
       router.push("/")
     }
-    else {
-      if (isConnected && address) {
-        let userData = localStorage.getItem(address) as string;
-        let user = { userType: "" };
-        if (!userData || userData === "undefined") {
-          user = { userType: "" };
-        }
-        try {
-          user = JSON.parse(userData);
-        } catch (error) {
-          console.error("error parsing user data", error);
-        }
-
-        const { userType } = user;
-        if (userType === "educator") {
-          router.push("/educator");
-        } else if (userType === "learner") {
-          router.push("/learner");
-        }
-      }
-    }
   }, [isDisconnected]);
 
   return (

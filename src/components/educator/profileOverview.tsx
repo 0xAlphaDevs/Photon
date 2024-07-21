@@ -10,8 +10,8 @@ import { EarningChart } from "./earningChart";
 import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
 import { useReadContracts } from "wagmi";
 
-const ProfileOverview = ({ allCourses }: { allCourses: [] }) => {
-  const courses: [] = allCourses;
+const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
+  const courses: string[] = allCourses;
   const [totalSales, setTotalSales] = React.useState(27);
   const [courseEarnings, setCourseEarnings] = React.useState([
     { courseId: "THETA101", earnings: 100 },
