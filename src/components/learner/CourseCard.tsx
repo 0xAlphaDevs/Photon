@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -12,6 +12,7 @@ import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
 import { useAccount, useReadContracts, useWriteContract } from "wagmi";
 import { PhotonTokenAbi, PhotonTokenAddress } from "@/lib/abi/PhotonToken";
 import { Skeleton } from "../ui/skeleton";
+import { useToast } from "../ui/use-toast";
 
 interface Course {
   courseId: string;
@@ -24,6 +25,7 @@ interface Course {
 
 const CourseCard = ({ courseNftAddress }: any) => {
   const { address } = useAccount();
+  const { toast } = useToast();
   const [course, setCourse] = React.useState<Course>({
     courseId: "loading...",
     name: "loading...",
@@ -32,10 +34,10 @@ const CourseCard = ({ courseNftAddress }: any) => {
     balance: 0,
     owner: "loading...",
   });
-  const { error, isPending, writeContract } = useWriteContract();
+  const { error, isPending, isSuccess, writeContract } = useWriteContract();
 
   const {
-    data: contractsData,
+    data: readContractsData,
     error: readContractsError,
     isLoading: readContractsLoading,
   } = useReadContracts({
@@ -81,9 +83,16 @@ const CourseCard = ({ courseNftAddress }: any) => {
   });
 
   useMemo(() => {
-    if (!readContractsLoading && contractsData) {
-      const [courseId, owner, description, name, price, nftBalance, allowance] =
-        contractsData.map((result) => result.result);
+    if (!readContractsLoading && readContractsData) {
+      const [
+        courseId,
+        owner,
+        description,
+        name,
+        price,
+        nftBalance,
+        allowance,
+      ] = readContractsData.map((result) => result.result);
 
       setCourse({
         courseId: courseId as string,
@@ -95,7 +104,27 @@ const CourseCard = ({ courseNftAddress }: any) => {
           (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
       });
     }
-  }, [contractsData, readContractsLoading]);
+  }, [readContractsData, readContractsLoading]);
+
+  useEffect(() => {
+    if (error) {
+      toast({
+        title: "Opps!",
+        description: error.message || "Please enter a valid contract address",
+        variant: "destructive",
+      });
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (isSuccess) {
+      toast({
+        title: "Course purchase Successful",
+        description: "Your purchase has been completed successfully",
+        variant: "success",
+      });
+    }
+  }, [isSuccess]);
 
   const handlePurchase = () => {
     console.log("purchase initiated", courseNftAddress, course.price);
@@ -117,7 +146,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
     });
   };
 
-  const allowance = contractsData ? contractsData[6].result : 0;
+  const allowance = readContractsData ? readContractsData[6].result : 0;
 
   if (readContractsLoading) {
     return (
@@ -172,7 +201,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
           </Button>
         ) : (
           <Button onClick={handlePurchase} className="w-full">
-            Buy Course
+            {isPending ? "Purchasing..." : "Buy Course"}
           </Button>
         )}
       </CardFooter>
