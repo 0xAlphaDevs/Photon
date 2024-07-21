@@ -35,7 +35,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
   const { error, isPending, writeContract } = useWriteContract();
 
   const {
-    data: readContractsData,
+    data: contractsData,
     error: readContractsError,
     isLoading: readContractsLoading,
   } = useReadContracts({
@@ -81,16 +81,9 @@ const CourseCard = ({ courseNftAddress }: any) => {
   });
 
   useMemo(() => {
-    if (!readContractsLoading && readContractsData) {
-      const [
-        courseId,
-        owner,
-        description,
-        name,
-        price,
-        nftBalance,
-        allowance,
-      ] = readContractsData.map((result) => result.result);
+    if (!readContractsLoading && contractsData) {
+      const [courseId, owner, description, name, price, nftBalance, allowance] =
+        contractsData.map((result) => result.result);
 
       setCourse({
         courseId: courseId as string,
@@ -102,7 +95,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
           (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
       });
     }
-  }, [readContractsData, readContractsLoading]);
+  }, [contractsData, readContractsLoading]);
 
   const handlePurchase = () => {
     console.log("purchase initiated", courseNftAddress, course.price);
@@ -124,7 +117,7 @@ const CourseCard = ({ courseNftAddress }: any) => {
     });
   };
 
-  const allowance = readContractsData ? readContractsData[6].result : 0;
+  const allowance = contractsData ? contractsData[6].result : 0;
 
   if (readContractsLoading) {
     return (

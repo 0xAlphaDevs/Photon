@@ -1,25 +1,18 @@
 "use client";
 import React, { useMemo } from "react";
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { EarningChart } from "@/components/educator/earningChart";
-import {
   PhotonCourseFactoryAbi,
   PhotonCourseFactoryAddress,
 } from "@/lib/abi/PhotonCourseFactoryAbi";
 import { useAccount, useReadContract } from "wagmi";
 import EarningCourseCard from "@/components/educator/earningsCourseCard";
 import { Skeleton } from "@/components/ui/skeleton";
+import ProfileOverview from "@/components/educator/profileOverview";
 
 const EducatorEarnings = () => {
   const { address } = useAccount();
   const [courses, setCourses] = React.useState<string[]>([]);
+
   const { data: allCourses, isLoading } = useReadContract({
     address: PhotonCourseFactoryAddress,
     abi: PhotonCourseFactoryAbi,
@@ -36,35 +29,7 @@ const EducatorEarnings = () => {
   return (
     <div className="py-8">
       <p className="text-3xl font-medium"> Earnings</p>
-      <div className="flex gap-8 w-full my-8">
-        <Card className="w-[50%] h-60">
-          <CardHeader>
-            <CardTitle>Profile Overview</CardTitle>
-            <CardDescription>
-              Below are the details of your total earnings.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col gap-2">
-            <div className="flex items-center gap-4">
-              <p>Total Courses : </p>
-              <p className="font-bold">34</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <p>Total Sales : </p>
-              <p className="font-bold">26</p>
-            </div>
-            <div className="flex items-center gap-4">
-              <p>Total Revenue : </p>
-              <p className="font-bold">$ 3400</p>
-            </div>
-          </CardContent>
-        </Card>
-        <Card className="w-[50%] h-60">
-          <CardContent className="">
-            <EarningChart />
-          </CardContent>
-        </Card>
-      </div>
+      <ProfileOverview allCourses={courses} />
       <div>
         <p className="text-xl font-medium"> Course wise breakup </p>
         <div className="flex flex-col gap-4 my-4">
