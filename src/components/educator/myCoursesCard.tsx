@@ -9,8 +9,10 @@ import {
 } from "@/components/ui/card"
 import { Button } from '@/components/ui/button'
 import { useRouter } from 'next/navigation'
-import { useAccount, useReadContract } from 'wagmi'
+import { useAccount, useReadContract, useReadContracts } from 'wagmi'
 import { PhotonCourseAbi } from '@/lib/abi/PhotonCourseAbi'
+import { Badge } from '../ui/badge'
+import { Skeleton } from '../ui/skeleton'
 
 interface MyCoursesCard {
   courseId: string;
@@ -19,7 +21,6 @@ interface MyCoursesCard {
   price: number;
   balance: number;
 }
-
 
 const MyCoursesCard = ({ courseNftAddress }: any) => {
   const router = useRouter();
@@ -32,65 +33,103 @@ const MyCoursesCard = ({ courseNftAddress }: any) => {
     balance: 0,
   });
 
-  const { data: courseId } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "symbol",
-  });
-
-  const { data: description } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "description",
-  });
-
-  const { data: name } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "name",
-  });
-
-  const { data: price } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "price",
-  });
-
-  const { data: nftBalance } = useReadContract({
-    address: courseNftAddress,
-    abi: PhotonCourseAbi,
-    functionName: "balanceOf",
-    args: [address],
+  const {
+    data: readContractsData,
+    isLoading: readContractsLoading,
+    error: readContractsError,
+  } = useReadContracts({
+    contracts: [
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "symbol",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "description",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "name",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "price",
+      },
+      {
+        address: courseNftAddress,
+        abi: PhotonCourseAbi,
+        functionName: "balanceOf",
+        args: [address],
+      },
+    ],
   });
 
   useMemo(() => {
-    setCourse({
-      ...course,
-      courseId: courseId as string,
-      name: name as string,
-      description: description as string,
-      price: Number(price),
-      balance: Number(nftBalance),
-    });
-  }, [description, name, price, courseId, nftBalance]);
+    if (!readContractsLoading && readContractsData) {
+      const [
+        courseId,
+        description,
+        name,
+        price,
+        nftBalance,
+      ] = readContractsData.map((result) => result.result);
+
+      setCourse({
+        courseId: courseId as string,
+        name: name as string,
+        description: description as string,
+        price: Number(price),
+        balance: Number(nftBalance),
+      });
+    }
+  }, [readContractsData, readContractsLoading]);
 
   const handleViewCourse = (id: string) => {
     router.push(`/educator/dashboard/course/${id}`);
   };
 
+  if (readContractsLoading) {
+    return (
+      <Card key={courseNftAddress} className='shadow-md'>
+        <CardHeader>
+          <CardTitle className='flex justify-between items-center'>
+            <Skeleton className='h-6 w-[200px]' />
+            <Skeleton className='h-6 w-[200px]' />
+          </CardTitle>
+          <CardDescription >
+            <Skeleton className='h-4 w-[300px]' />
+          </CardDescription>
+        </CardHeader>
+        <CardContent className='flex justify-between items-center'>
+          <Skeleton className='h-4 w-[100px]' />
+          <Skeleton className='h-10 w-[100px]' />
+        </CardContent>
+      </Card>
+    );
+  }
+
   return (
     <Card key={courseNftAddress} className='shadow-md'>
       <CardHeader>
-        <CardTitle>{course.name}</CardTitle>
-        <CardDescription>{course.description}</CardDescription>
+        <CardTitle className='flex justify-between items-center'>
+          <p> {course.name}</p>
+          <div className='flex gap-2 items-center'>
+            <p className='text-sm'>Course ID :</p>
+            <Badge> {course.courseId}</Badge>
+          </div>
+        </CardTitle>
+        <CardDescription >
+          <p> {course.description}</p>
+        </CardDescription>
       </CardHeader>
-      <CardContent className='flex justify-between'>
-        <p>Course ID: {course.courseId}</p>
+      <CardContent className='flex justify-between items-center'>
         <p>Price: {course.price / 10 ** 18} PHT</p>
+        <Button className='' onClick={() => handleViewCourse(course.courseId)}>Edit Course</Button>
       </CardContent>
-      <CardFooter>
-        <Button className='w-full' onClick={() => handleViewCourse(course.courseId)}>View Course</Button>
-      </CardFooter>
     </Card>
   )
 }
