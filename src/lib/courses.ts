@@ -8,7 +8,7 @@ export const courses: Course[] = [
     price: 50,
     streamId: "stream123",
     creator: "John Doe",
-    thumbnailUrl: "/images/react-basics.jpg",
+    thumbnailUrl: "/logo.png",
     videos: [
       {
         id: "1",
