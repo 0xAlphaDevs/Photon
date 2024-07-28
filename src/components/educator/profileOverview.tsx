@@ -12,7 +12,7 @@ import { useReadContracts } from "wagmi";
 
 const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
   const courses: string[] = allCourses;
-  const [totalSales, setTotalSales] = React.useState(27);
+  const [totalSales, setTotalSales] = React.useState(7);
   const [courseEarnings, setCourseEarnings] = React.useState([
     { courseId: "THETA101", earnings: 100 },
     { courseId: "THETA105", earnings: 500 },
@@ -97,13 +97,15 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
   ]);
 
   useMemo(() => {
-    //
     if (!readTotalSalesLoading && totalSalesData) {
       // sum all the total sales
       const totalSales = totalSalesData.reduce((acc, contract) => {
         return acc + Number(contract.result);
       }, 0);
-      setTotalSales(totalSales);
+
+      // TO DO: uncomment this line after testing
+
+      // setTotalSales(totalSales);
     }
   }, [totalSalesData, readTotalSalesLoading]);
 
