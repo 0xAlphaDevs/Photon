@@ -33,7 +33,7 @@ const Test = () => {
       },
     };
 
-    // 1. Get the presigned URL and then upload the video
+    // 1. Get the presigned URL and then upload the video - API
     axios
       .post(options.url, {}, { headers: options.headers })
       .then((response) => {
@@ -41,7 +41,7 @@ const Test = () => {
         console.log(response.data);
         const source_upload_id = response.data.body.uploads[0].id;
 
-        // 2. upload the video to the presigned URL as Uint8Array octet stream
+        // 2. upload the video to the presigned URL as Uint8Array octet stream - NOT API
         fetch(response.data.body.uploads[0].presigned_url, {
           method: "PUT",
           headers: {
@@ -51,7 +51,7 @@ const Test = () => {
         }).then((response) => {
           console.log("After upload");
           console.log(response);
-          // 3. transcode the video using an upload
+          // 3. transcode the video using an upload - API
           axios
             .post(
               "https://api.thetavideoapi.com/video",
@@ -70,6 +70,7 @@ const Test = () => {
                 metadata: {
                   name: "Macbook Screen Recording",
                   description: "This is a screen recording of a macbook air",
+                  courseId: 1,
                   creator: "0x123434334235df920923fjd2304",
                 },
               }),
@@ -82,7 +83,9 @@ const Test = () => {
               }
             )
             .then((response) => {
-              console.log("After transcoding");
+              console.log(
+                "After transcoding, just you can check the video status"
+              );
               console.log(response.data); // video_8x7ft4k9ybmqvje3ep52syb92c
             });
         });
