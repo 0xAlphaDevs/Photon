@@ -70,13 +70,9 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
 
   useMemo(() => {
     if (!readContractsLoading && readContractsData) {
-      const [
-        courseId,
-        owner,
-        description,
-        name,
-        price,
-      ] = readContractsData.map((result) => result.result);
+      const [courseId, owner, description, name, price] = readContractsData.map(
+        (result) => result.result
+      );
 
       setCourse({
         courseId: courseId as string,
@@ -95,7 +91,7 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
 
   if (readContractsLoading) {
     return (
-      <Card key={courseNftAddress} className="shadow-md">
+      <Card className="shadow-md">
         <CardHeader>
           <CardTitle>
             <Skeleton className="h-4 w-[200px]" />

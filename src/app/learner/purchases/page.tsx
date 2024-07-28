@@ -7,6 +7,7 @@ import {
 } from "@/lib/abi/PhotonCourseFactoryAbi";
 import { PurchasedCourseCard } from "@/components/learner/PurchasedCourseCard";
 import { useAccount, useReadContract } from "wagmi";
+import CourseCardSkeleton from "@/components/learner/CourseCardSkeleton";
 
 const LearnerPurchases = () => {
   const { address } = useAccount();
@@ -38,19 +39,15 @@ const LearnerPurchases = () => {
     <div className="py-8">
       <p className="text-3xl font-medium">My Purchases</p>
       <div className="grid grid-cols-3 gap-8 py-16">
-        {isLoading ? (
-          <p>Loading...</p>
-        ) : courses.length > 0 ? (
-          courses?.map((courseAddress: string) => (
-            <PurchasedCourseCard
-              key={courseAddress}
-              courseNftAddress={courseAddress}
-            />
-          ))
-        ) : (
-          // TO DO
-          <p className=" flex justify-center items-center ">No Purchases Yet</p>
-        )}
+        {courses.length > 0
+          ? courses?.map((courseAddress: string) => (
+              <PurchasedCourseCard
+                key={courseAddress}
+                courseNftAddress={courseAddress}
+              />
+            ))
+          : // TO DO
+            [1, 2, 3].map((index) => <CourseCardSkeleton key={index} />)}
       </div>
     </div>
   );
