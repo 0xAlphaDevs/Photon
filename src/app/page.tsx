@@ -22,22 +22,20 @@ export default function Home() {
       </div>
       <UserRegistery />
       <div className="grid grid-cols-3 gap-8 px-20 py-8 ">
-        <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center "></CardTitle>
-            <CardDescription className="text-center pt-1"></CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">NFT based
+              DRM protected courses</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center "></CardTitle>
-            <CardDescription className="text-center pt-1"></CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">Decentralized video powered by Theta edgecloud</CardDescription>
           </CardHeader>
         </Card>
-        <Card className="shadow-sm border-none h-full w-full bg-slate-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
+        <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardTitle className="text-center"></CardTitle>
-            <CardDescription className="text-center pt-1"></CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">Payments in Photon tokens</CardDescription>
           </CardHeader>
         </Card>
       </div>
