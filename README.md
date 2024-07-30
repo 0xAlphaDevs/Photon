@@ -1,6 +1,6 @@
 ## Photon
 
-Decentralised learning and teaching platform | Powered by Theta Network
+Decentralised learning platform | Powered by Theta Network
 
 ## Features
 

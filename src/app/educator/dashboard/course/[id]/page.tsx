@@ -106,7 +106,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           <p className="text-4xl font-semibold py-1"> {courseName}</p>
         </div>
         <div className="flex w-full gap-10">
-          <div className="flex flex-col gap-4 shadow-md p-4 rounded-[10px] w-full">
+          <div className="flex flex-col gap-4 shadow-sm p-4 rounded-[10px] w-full">
             <p className="text-2xl font-bold flex ">Course Details</p>
 
             <div className="flex gap-2 items-center">

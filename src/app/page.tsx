@@ -16,26 +16,30 @@ export default function Home() {
       <div className="flex flex-col items-center gap-2">
         <h1 className="text-4xl font-bold text-primary">Welcome to Photon !</h1>
         <p className="text-muted-foreground">
-          Decentralised learning and teaching platform | Powered by Theta
-          Network
+          Decentralised learning platform | Powered by Theta Network
         </p>
       </div>
       <UserRegistery />
       <div className="grid grid-cols-3 gap-8 px-20 py-8 ">
         <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">NFT based
-              DRM protected courses</CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">
+              Create NFT based DRM protected Course
+            </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">Decentralized video powered by Theta edgecloud</CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">
+              Decentralized Video powered by Theta EdgeCloud
+            </CardDescription>
           </CardHeader>
         </Card>
         <Card className="shadow-sm border-none h-full w-full bg-yellow-300 rounded-lg bg-opacity-15 border cursor-pointer transform transition-transform duration-300 ease-in-out hover:scale-110">
           <CardHeader>
-            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">Payments in Photon tokens</CardDescription>
+            <CardDescription className="text-center pt-1 text-lg font-semibold text-black">
+              Instant Payments in Photon(PHT) token
+            </CardDescription>
           </CardHeader>
         </Card>
       </div>
@@ -45,7 +49,7 @@ export default function Home() {
           <p className="text-muted-foreground">
             &copy;{" "}
             <a href="https://www.alphadevs.dev/" target="_blank">
-              alphadevs.dev
+              Team AlphaDevs
             </a>{" "}
             | All rights reserved.
           </p>
