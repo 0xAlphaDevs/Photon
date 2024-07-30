@@ -3,7 +3,7 @@ import { Card, CardDescription, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { PhotonTokenAbi, PhotonTokenAddress } from "@/lib/abi/PhotonToken";
 import React, { useMemo } from "react";
-import { useReadContract, useAccount } from "wagmi";
+import { useReadContract, useAccount, useBalance } from "wagmi";
 
 const EducatorWallet = () => {
   const { address } = useAccount();
@@ -16,8 +16,9 @@ const EducatorWallet = () => {
     args: [address],
   });
 
+  const { data } = useBalance({ address: address });
+
   useMemo(() => {
-    console.log("balance", balance);
     if (balance) {
       const phtBalance = Number(balance) / 10 ** 18;
       setPhtBalance(phtBalance);
@@ -37,6 +38,13 @@ const EducatorWallet = () => {
             <Skeleton className="h-8 w-28 rounded-lg" />
           ) : (
             <CardTitle> {phtBalance} PHT</CardTitle>
+          )}
+
+          <CardDescription> TFUEL Balance </CardDescription>
+          {!data ? (
+            <Skeleton className="h-8 w-28 rounded-lg" />
+          ) : (
+            <CardTitle> {data.formatted} TFUEL</CardTitle>
           )}
         </Card>
       </div>

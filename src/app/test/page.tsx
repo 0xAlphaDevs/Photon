@@ -71,7 +71,7 @@ const Test = () => {
                   title: "Macbook Screen Recording",
                   description: "This is a screen recording of a macbook air",
                   "course-id": "123",
-                  "course-reator": "0x123434334235df920923fjd2304",
+                  "course-creator": "0x123434334235df920923fjd2304",
                 },
               }),
               {
@@ -82,6 +82,7 @@ const Test = () => {
                 },
               }
             )
+            // 4. check the video status - API
             .then((response) => {
               console.log(
                 "After transcoding, just you can check the video status"

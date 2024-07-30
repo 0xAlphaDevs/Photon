@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React, { useMemo } from "react";
 import {
   Card,
   CardContent,
@@ -6,13 +6,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card"
-import { Button } from '@/components/ui/button'
-import { useRouter } from 'next/navigation'
-import { useAccount, useReadContract, useReadContracts } from 'wagmi'
-import { PhotonCourseAbi } from '@/lib/abi/PhotonCourseAbi'
-import { Badge } from '../ui/badge'
-import { Skeleton } from '../ui/skeleton'
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { useAccount, useReadContract, useReadContracts } from "wagmi";
+import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
+import { Badge } from "../ui/badge";
+import { Skeleton } from "../ui/skeleton";
 
 interface MyCoursesCard {
   courseId: string;
@@ -70,13 +70,8 @@ const MyCoursesCard = ({ courseNftAddress }: any) => {
 
   useMemo(() => {
     if (!readContractsLoading && readContractsData) {
-      const [
-        courseId,
-        description,
-        name,
-        price,
-        nftBalance,
-      ] = readContractsData.map((result) => result.result);
+      const [courseId, description, name, price, nftBalance] =
+        readContractsData.map((result) => result.result);
 
       setCourse({
         courseId: courseId as string,
@@ -89,49 +84,56 @@ const MyCoursesCard = ({ courseNftAddress }: any) => {
   }, [readContractsData, readContractsLoading]);
 
   const handleViewCourse = (id: string) => {
-    router.push(`/educator/dashboard/course/${id}`);
+    router.push(`/educator/dashboard/course/${id}?address=${courseNftAddress}`);
   };
 
   if (readContractsLoading) {
     return (
-      <Card key={courseNftAddress} className='shadow-md'>
+      <Card key={courseNftAddress} className="shadow-md">
         <CardHeader>
-          <CardTitle className='flex justify-between items-center'>
-            <Skeleton className='h-6 w-[200px]' />
-            <Skeleton className='h-6 w-[200px]' />
+          <CardTitle className="flex justify-between items-center">
+            <Skeleton className="h-6 w-[200px]" />
+            <Skeleton className="h-6 w-[200px]" />
           </CardTitle>
-          <CardDescription >
-            <Skeleton className='h-4 w-[300px]' />
+          <CardDescription>
+            <Skeleton className="h-4 w-[300px]" />
           </CardDescription>
         </CardHeader>
-        <CardContent className='flex justify-between items-center'>
-          <Skeleton className='h-4 w-[100px]' />
-          <Skeleton className='h-10 w-[100px]' />
+        <CardContent className="flex justify-between items-center">
+          <Skeleton className="h-4 w-[100px]" />
+          <Skeleton className="h-10 w-[100px]" />
         </CardContent>
       </Card>
     );
   }
 
   return (
-    <Card key={courseNftAddress} className='shadow-md'>
+    <Card key={courseNftAddress} className="shadow-md">
       <CardHeader>
-        <CardTitle className='flex justify-between items-center'>
+        <CardTitle className="flex justify-between items-center">
           <p> {course.name}</p>
-          <div className='flex gap-2 items-center'>
-            <p className='text-sm'>Course ID :</p>
+          <div className="flex gap-2 items-center">
+            <p className="text-sm">Course ID :</p>
             <Badge> {course.courseId}</Badge>
           </div>
         </CardTitle>
-        <CardDescription >
+        <CardDescription>
           <p> {course.description}</p>
         </CardDescription>
       </CardHeader>
-      <CardContent className='flex justify-between items-center'>
-        <p className='text-muted-foreground'>Price: <strong className="text-lg font-bold">{course.price / 10 ** 18} PHT</strong></p>
-        <Button className='' onClick={() => handleViewCourse(course.courseId)}>Edit Course</Button>
+      <CardContent className="flex justify-between items-center">
+        <p className="text-muted-foreground">
+          Price:{" "}
+          <strong className="text-lg font-bold">
+            {course.price / 10 ** 18} PHT
+          </strong>
+        </p>
+        <Button className="" onClick={() => handleViewCourse(course.courseId)}>
+          Edit Course
+        </Button>
       </CardContent>
     </Card>
-  )
-}
+  );
+};
 
-export default MyCoursesCard
+export default MyCoursesCard;
