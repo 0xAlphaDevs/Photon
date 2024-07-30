@@ -113,21 +113,21 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
     <div className="flex gap-8 w-full my-8">
       <Card className="w-[50%] ">
         <CardHeader>
-          <CardTitle>Profile Overview</CardTitle>
+          <CardTitle className="">Profile Overview</CardTitle>
           <CardDescription>
             Below are the details of your total earnings.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col gap-2">
           <div className="flex items-center gap-4">
-            <p>Total Courses : </p>
-            <p className="font-bold">{courses.length}</p>
+            <p className="text-lg">Total Courses : </p>
+            <p className="font-bold text-lg">{courses.length}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 text-lg">
             <p>Total Sales : </p>
             <p className="font-bold">{totalSales}</p>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 text-lg">
             <p>Total Revenue : </p>
             <p className="font-bold"> {totalEarnings} PHT</p>
           </div>

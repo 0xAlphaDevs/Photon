@@ -78,6 +78,7 @@ Follow these instructions to set up and run the project:
 
 - Theta NFT based DRMs
 - Theta EdgeCloud
+- Theta DRM Player
 - Theta testnet
 - Next JS
 - Wagmi
