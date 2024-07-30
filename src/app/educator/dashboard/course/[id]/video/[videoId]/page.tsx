@@ -3,7 +3,7 @@
 import React from "react";
 import { MoveLeftIcon } from "lucide-react";
 import { useParams, usePathname, useRouter } from "next/navigation";
-import { DRMPlayer } from "@/app/test/Player";
+import { DRMPlayer } from "@/components/Player";
 
 const VideoIdPage = () => {
   const router = useRouter();

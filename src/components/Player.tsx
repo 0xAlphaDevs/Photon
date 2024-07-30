@@ -3,7 +3,7 @@ import Spinner from "@/components/spinner";
 import React, { Component, useEffect } from "react";
 // @ts-ignore
 import { StudioPlayer } from "theta-video-api-drm-player";
-import "../drm-player.css";
+import "../app/drm-player.css";
 
 interface DRMPlayerProps {
   videoId: string;
