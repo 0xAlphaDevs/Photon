@@ -33,8 +33,8 @@ const getCourseVideos = async (courseId: string, courseCreator: string) => {
     method: "GET",
     url: `https://api.thetavideoapi.com/video/${process.env.API_KEY}/search?course-id=${courseId}&course-creator=${courseCreator}`,
     headers: {
-      "x-tva-sa-id": process.env.NEXT_PUBLIC_API_KEY,
-      "x-tva-sa-secret": process.env.NEXT_PUBLIC_API_SECRET,
+      "x-tva-sa-id": process.env.API_KEY,
+      "x-tva-sa-secret": process.env.API_SECRET,
     },
   };
 
