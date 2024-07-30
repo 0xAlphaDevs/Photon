@@ -23,7 +23,7 @@ Decentralised learning platform | Powered by Theta Network
 
 - [Deployed URL](https://photon-theta-seven.vercel.app/)
 - [Presentation](https://www.canva.com/design/DAGMO_pkCFc/l0H_f8jduMTVbdKfPv0jtA/view)
-- [Video Demo]()
+- [Video Demo](https://youtu.be/Ga1x2yXfJxc)
 
 ## Deployed Contract
 
