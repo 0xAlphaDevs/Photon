@@ -4,7 +4,9 @@ Decentralised learning and teaching platform | Powered by Theta Network
 
 ## Features
 
--
+- NFT based DRM protected courses
+- Decentralized Video Powered by Theta EdgeCloud
+- Payments in Photon Tokens
 
 ## Table of Contents
 
@@ -25,7 +27,7 @@ Decentralised learning and teaching platform | Powered by Theta Network
 
 ## Deployed Contract
 
-- - []()
+- []()
 
 ## Instructions to Setup
 
@@ -33,7 +35,7 @@ Follow these instructions to set up and run the project:
 
 **Using Github**
 
-- Clone the Git repository: ``
+- Clone the Git repository: `https://github.com/0xAlphaDevs/Photon.git`
 - Install project dependencies: `pnpm install`
 - Copy .env.example
 - Start the development server: `pnpm run dev`
@@ -68,11 +70,17 @@ Follow these instructions to set up and run the project:
 
 ## Future Vision
 
--
+- Integrate live classes support using Theta EdgeCloud livestreams.
+- Integrate the Theta AI services in Photon for seameless learning experience.
+- Build MVP and deploy on Mainnet.
 
 ## Tech Stack
 
--
+- Theta NFT based DRMs
+- Theta EdgeCloud
+- Theta testnet
+- Next JS
+- Wagmi
 
 ## Team
 
