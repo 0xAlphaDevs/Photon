@@ -7,12 +7,9 @@ import { DRMPlayer } from "@/components/Player";
 
 const VideoIdPage = () => {
   const router = useRouter();
-  const { id } = useParams();
-  console.log("ID", id);
+  const { videoId } = useParams();
 
-  const videoId = "video_bwfu8ir6mjmfaf0edtb2dz6vi6";
-
-  console.log("Video ID", videoId);
+  const id: string = videoId as string;
 
   const handleBackClick = () => {
     router.back();
@@ -27,7 +24,7 @@ const VideoIdPage = () => {
         <p className="text-3xl font-medium">Video Player </p>
       </div>
 
-      <DRMPlayer videoId={videoId} />
+      <DRMPlayer videoId={id} />
     </div>
   );
 };

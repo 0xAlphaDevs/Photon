@@ -37,12 +37,6 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   console.log("courseNftAddress", courseNftAddress);
 
-  // Static data below
-  // const sampleCourse: any = courses.find(
-  //   (course: Course) => course.id === params.id
-  // );
-  // const [course, setCourse] = useState<Course>(sampleCourse);
-
   const handleGoLive = () => {
     router.push(`/educator/dashboard/course/${courseId}/livestream`);
   };
@@ -105,8 +99,8 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         <div className="flex justify-between items-center mb-4">
           <p className="text-4xl font-semibold py-1"> {courseName}</p>
         </div>
-        <div className="flex w-full gap-10">
-          <div className="flex flex-col gap-4 shadow-sm p-4 rounded-[10px] w-full">
+        <div className="flex w-full gap-8">
+          <div className="flex flex-col gap-4 bg-gray-100 shadow-sm p-4 rounded-[10px] w-full">
             <p className="text-2xl font-bold flex ">Course Details</p>
 
             <div className="flex gap-2 items-center">

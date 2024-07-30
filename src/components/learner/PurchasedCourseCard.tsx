@@ -79,14 +79,15 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
         name: name as string,
         description: description as string,
         price: Number(price),
-        owner:
-          (owner as string)?.slice(0, 6) + "..." + (owner as string)?.slice(-6),
+        owner: owner as string,
       });
     }
   }, [readContractsData, readContractsLoading]);
 
   const handleViewCourse = (id: string) => {
-    router.push(`/learner/purchases/course/${id}`);
+    router.push(
+      `/learner/purchases/course/${id}?address=${courseNftAddress}&course-creator=${course.owner}&course-id=${course.courseId}&course-name=${course.name}&course-description=${course.description}&course-price=${course.price}`
+    );
   };
 
   if (readContractsLoading) {
@@ -122,7 +123,10 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
           <div>
             <p> {course.description}</p>
             <p className="font-semibold py-2 text-blue-500">
-              Educator : {course.owner}
+              Educator :{" "}
+              {course.owner?.slice(0, 6) +
+                "..." +
+                (course.owner as string)?.slice(-6)}
             </p>
           </div>
         </CardDescription>
