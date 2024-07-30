@@ -21,8 +21,8 @@ Decentralised learning platform | Powered by Theta Network
 
 ## Links
 
-- [Deployed URL]()
-- [Presentation]()
+- [Deployed URL](https://photon-theta-seven.vercel.app/)
+- [Presentation](https://www.canva.com/design/DAGMO_pkCFc/l0H_f8jduMTVbdKfPv0jtA/view)
 - [Video Demo]()
 
 ## Deployed Contract
@@ -44,25 +44,37 @@ Decentralised learning platform | Powered by Theta Network
 ## App Demo Screenshots
 
 **_Landing Page_**
-![image](/public/appDemo/1.jpeg)
+![image](/public/appDemo/landing-page.jpeg)
 
-**\_\_**
-![image](/public/appDemo/2.jpeg)
+**_Register User_**
+![image](/public/appDemo/register-user.jpeg)
 
-**\_\_**
-![image](/public/appDemo/3.jpeg)
+**_Educator Dashboard_**
+![image](/public/appDemo/educator-dashboard.jpeg)
 
-![image](/public/appDemo/4.jpeg)
+**_Create Course_**
+![image](/public/appDemo/create-course.jpeg)
 
-![image](/public/appDemo/5.jpeg)
+**_Upload Video_**
+![image](/public/appDemo/upload-video.jpeg)
 
-![image](/public/appDemo/6.jpeg)
+**_Upload Video Success_**
+![image](/public/appDemo/upload-video-success.jpeg)
 
-**\_\_**
-![image](/public/appDemo/7.jpeg)
+**_Track Earnings_**
+![image](/public/appDemo/track-earnings.jpeg)
 
-**\_\_**
-![image](/public/appDemo/8.jpeg)
+**_Purchase Course_**
+![image](/public/appDemo/purchase-course.jpeg)
+
+**_View Course Contents_**
+![image](/public/appDemo/view-course-contents.jpeg)
+
+**_Theta DRM Player_**
+![image](/public/appDemo/theta-drm-player.jpeg)
+
+**_Wallet_**
+![image](/public/appDemo/wallet.jpeg)
 
 ## Future Vision
 
