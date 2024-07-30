@@ -28,6 +28,6 @@ function createTvaJwt() {
     exp: expiration,
   };
 
-  let secretOrPrivateKey: string = process.env.NEXT_PUBLIC_API_SECRET || "";
+  let secretOrPrivateKey: string = process.env.API_SECRET || "";
   return jwt.sign(payload, secretOrPrivateKey, algorithm);
 }

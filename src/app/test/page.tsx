@@ -68,10 +68,10 @@ const Test = () => {
                   },
                 ],
                 metadata: {
-                  name: "Macbook Screen Recording",
+                  title: "Macbook Screen Recording",
                   description: "This is a screen recording of a macbook air",
-                  courseId: 1,
-                  creator: "0x123434334235df920923fjd2304",
+                  "course-id": "123",
+                  "course-reator": "0x123434334235df920923fjd2304",
                 },
               }),
               {

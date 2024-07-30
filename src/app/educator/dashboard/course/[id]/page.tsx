@@ -59,9 +59,9 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           <MoveLeftIcon className="h-6 w-6" />
         </div>
         <div className="flex items-center gap-8">
-          <Button onClick={handleGoLive} className="text-lg">
+          {/* <Button onClick={handleGoLive} className="text-lg">
             Go Live
-          </Button>
+          </Button> */}
           <AddVideo />
         </div>
       </div>
@@ -69,22 +69,28 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       <div className="my-8">
         <div className="flex justify-between items-center">
           <p className="text-3xl font-semibold py-1"> {course.name}</p>
-          <p className="text-lg py-4 flex items-center gap-4 ">
-            Course Id :<Badge> {course.id} </Badge>
-          </p>
         </div>
-        <div className=" flex justify-center shadow-md p-3 rounded-[10px] object-contain mb-4">
-          <Image
-            src={course.thumbnailUrl}
-            height={160}
-            width={320}
-            alt="Course Thumbnail"
-            className="w-auto h-auto"
-          />
+        <div className="flex w-full gap-10">
+          <div className="flex flex-col justify-center shadow-md p-3 rounded-[10px] w-full">
+            {/* TO DO: Design the course details section */}
+            <p>Course Details</p>
+            <p> Course ID : {course.id}</p>
+            <p> Course Creator : {course.creator}</p>
+            <p> Course Price : {course.price}</p>
+            <p className="text-muted-foreground text-lg flex justify-center p-1">
+              {course.description}
+            </p>
+          </div>
+          <div className="flex justify-center  p-3 rounded-[10px] object-contain mb-4 w-full">
+            <Image
+              src={course.thumbnailUrl}
+              height={160}
+              width={320}
+              alt="Course Thumbnail"
+              className="w-auto h-auto"
+            />
+          </div>
         </div>
-        <p className="text-muted-foreground text-lg flex justify-center p-1">
-          {course.description}
-        </p>
       </div>
       <div className="">
         <p className="text-3xl font-semibold py-4">Course Content</p>
