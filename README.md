@@ -12,11 +12,11 @@ Decentralised learning platform | Powered by Theta Network
 
 1. [All Links](#links)
 2. [Deployed Contracts](#deployed-contract)
-3. [Instructions to setup and run locally ](#instructions-to-setup)
-4. [Our Solution (Architecture)](#our-solution-architecture)
+3. [Tech Stack](#tech-stack)
+4. [High Level Architecture](#high-level-architecture)
 5. [App Demo](#app-demo-screenshots)
 6. [Future Vision](#future-vision)
-7. [Tech Stack](#tech-stack)
+7. [Instructions to setup and run locally ](#instructions-to-setup)
 8. [Team](#team)
 
 ## Links
@@ -27,21 +27,17 @@ Decentralised learning platform | Powered by Theta Network
 
 ## Deployed Contract
 
-- []()
+- [PhotonCourseFactory: 0xf04a3b3099efcb6d10f8beae09c02f94e8a258aa](https://testnet-explorer.thetatoken.org/account/0xf04a3b3099efcb6d10f8beae09c02f94e8a258aa)
+- [PhotonToken: 0x33329d898bd602804be680b2d5a84c8b1f076441](https://testnet-explorer.thetatoken.org/account/0x33329d898bd602804be680b2d5a84c8b1f076441)
 
-## Instructions to Setup
+## Tech Stack
 
-Follow these instructions to set up and run the project:
+- Theta Testnet
+- Theta EdgeCloud
+- Theta Video API
+- Next JS
 
-**Using Github**
-
-- Clone the Git repository: `https://github.com/0xAlphaDevs/Photon.git`
-- Install project dependencies: `pnpm install`
-- Copy .env.example
-- Start the development server: `pnpm run dev`
-- Access the web app in your browser at [http://localhost:3000](http://localhost:3000)
-
-## Our Solution (Architecture)
+## High Level Architecture
 
 ![image](/public/appDemo/architecture.png)
 
@@ -74,14 +70,17 @@ Follow these instructions to set up and run the project:
 - Integrate the Theta AI services in Photon for seameless learning experience.
 - Build MVP and deploy on Mainnet.
 
-## Tech Stack
+## Instructions to Setup
 
-- Theta NFT based DRMs
-- Theta EdgeCloud
-- Theta DRM Player
-- Theta testnet
-- Next JS
-- Wagmi
+Follow these instructions to set up and run the project:
+
+**Using Github**
+
+- Clone the Git repository: `https://github.com/0xAlphaDevs/Photon.git`
+- Install project dependencies: `pnpm install`
+- Copy .env.example
+- Start the development server: `pnpm run dev`
+- Access the web app in your browser at [http://localhost:3000](http://localhost:3000)
 
 ## Team
 
