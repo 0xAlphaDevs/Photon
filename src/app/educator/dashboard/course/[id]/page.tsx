@@ -68,24 +68,33 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       {/* Course Details */}
       <div className="my-8">
         <div className="flex justify-between items-center">
-          <p className="text-3xl font-semibold py-1"> {course.name}</p>
+          <p className="text-4xl font-semibold py-1"> {course.name}</p>
         </div>
         <div className="flex w-full gap-10">
-          <div className="flex flex-col justify-center shadow-md p-3 rounded-[10px] w-full">
-            {/* TO DO: Design the course details section */}
-            <p>Course Details</p>
-            <p> Course ID : {course.id}</p>
-            <p> Course Creator : {course.creator}</p>
-            <p> Course Price : {course.price}</p>
-            <p className="text-muted-foreground text-lg flex justify-center p-1">
-              {course.description}
+          <div className="flex flex-col gap-4 shadow-md p-4 rounded-[10px] w-full">
+            <p className="text-2xl font-medium flex justify-center">Course Details</p>
+
+            <div className="flex gap-2 items-center">
+              <p className="font-semibold"> Course ID : </p>
+              <Badge>{course.id}</Badge>
+            </div>
+            <div className="flex gap-2 items-center">
+              <p className="font-semibold">Course Price : </p>
+              <p className="text-lg">  {course.price}</p>
+            </div>
+
+            <p className="font-semibold"> Course Creator :
+              <span className="font-normal text-blue-500"> {course.creator}</span>
+            </p>
+            <p className="font-semibold">
+              Course Description : <span className="text-muted-foreground"> {course.description}</span>
             </p>
           </div>
           <div className="flex justify-center  p-3 rounded-[10px] object-contain mb-4 w-full">
             <Image
               src={course.thumbnailUrl}
               height={160}
-              width={320}
+              width={160}
               alt="Course Thumbnail"
               className="w-auto h-auto"
             />
