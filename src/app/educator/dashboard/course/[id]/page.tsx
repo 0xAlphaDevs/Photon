@@ -1,9 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { courses } from "@/lib/courses";
-import { Course, Video } from "@/lib/types";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { Video } from "@/lib/types";
+import { useRouter, useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -19,7 +18,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { AddVideo } from "@/components/educator/addVideo";
@@ -105,7 +104,12 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
                 <DialogTitle>Live classes</DialogTitle>
               </DialogHeader>
               <div className="flex justify-center py-4 text-3xl font-semibold text-muted-foreground">
-                <Image src="/coming-soon.png" width={150} height={150} alt="Logo" />
+                <Image
+                  src="/coming-soon.png"
+                  width={150}
+                  height={150}
+                  alt="Logo"
+                />
               </div>
             </DialogContent>
           </Dialog>
@@ -165,19 +169,25 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         <p className="text-3xl font-semibold py-4">Course Content</p>
         <div className="flex flex-col gap-4">
           {!loading ? (
-            courseVideos.map((video: Video) => (
-              <Card key={video.id} className="shadow-md">
-                <CardContent className="flex justify-between items-center pt-4">
-                  <div className="flex flex-col gap-2">
-                    <CardTitle>{video.name}</CardTitle>
-                    <CardDescription>{video.description}</CardDescription>
-                  </div>
-                  <Button onClick={() => handleViewVideo(video.id)}>
-                    View
-                  </Button>
-                </CardContent>
-              </Card>
-            ))
+            courseVideos.length === 0 ? (
+              <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
+                You have not added any videos to this course yet.
+              </div>
+            ) : (
+              courseVideos.map((video: Video) => (
+                <Card key={video.id} className="shadow-md">
+                  <CardContent className="flex justify-between items-center pt-4">
+                    <div className="flex flex-col gap-2">
+                      <CardTitle>{video.name}</CardTitle>
+                      <CardDescription>{video.description}</CardDescription>
+                    </div>
+                    <Button onClick={() => handleViewVideo(video.id)}>
+                      View
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )
           ) : (
             <>
               <Card className="shadow-md">

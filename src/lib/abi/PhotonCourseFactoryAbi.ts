@@ -1,5 +1,5 @@
 export const PhotonCourseFactoryAddress =
-  "0x0c65cd582e4921a0083bd6e2e1f75892a810bef4";
+  "0xf04a3b3099efcb6d10f8beae09c02f94e8a258aa";
 
 export const PhotonCourseFactoryAbi = [
   {

@@ -1,4 +1,4 @@
-export const PhotonTokenAddress = "0xbccd3419436eaacc867f8f5c01c40874cfd827f7";
+export const PhotonTokenAddress = "0x33329d898bd602804be680b2d5a84c8b1f076441";
 
 export const PhotonTokenAbi = [
   {

@@ -84,15 +84,8 @@ const CourseCard = ({ courseNftAddress }: any) => {
 
   useMemo(() => {
     if (!readContractsLoading && readContractsData) {
-      const [
-        courseId,
-        owner,
-        description,
-        name,
-        price,
-        nftBalance,
-        allowance,
-      ] = readContractsData.map((result) => result.result);
+      const [courseId, owner, description, name, price, nftBalance, allowance] =
+        readContractsData.map((result) => result.result);
 
       setCourse({
         courseId: courseId as string,
@@ -115,16 +108,6 @@ const CourseCard = ({ courseNftAddress }: any) => {
       });
     }
   }, [error]);
-
-  useEffect(() => {
-    if (isSuccess) {
-      toast({
-        title: "Course purchase Successful",
-        description: "Your purchase has been completed successfully",
-        variant: "default",
-      });
-    }
-  }, [isSuccess]);
 
   const handlePurchase = () => {
     console.log("purchase initiated", courseNftAddress, course.price);
@@ -200,7 +183,11 @@ const CourseCard = ({ courseNftAddress }: any) => {
             Approve PHT spend
           </Button>
         ) : (
-          <Button onClick={handlePurchase} className="w-full" disabled={isPending}>
+          <Button
+            onClick={handlePurchase}
+            className="w-full"
+            disabled={isPending}
+          >
             {isPending ? "Purchasing..." : "Buy Course"}
           </Button>
         )}

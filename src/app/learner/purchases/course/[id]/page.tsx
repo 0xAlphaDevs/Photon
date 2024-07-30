@@ -1,8 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { courses } from "@/lib/courses";
-import { Course, Video } from "@/lib/types";
+import { Video } from "@/lib/types";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
   Card,
@@ -15,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { MoveLeftIcon } from "lucide-react";
 import { useState, useEffect, useMemo } from "react";
 import { getCourseDetails } from "@/lib/getCourseDetails";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -120,22 +120,46 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
         <p className="text-3xl font-semibold py-4">Course Content</p>
         <div className="flex flex-col gap-4">
           {!loading ? (
-            courseVideos.map((video: Video) => (
-              <Card key={video.id} className="shadow-md">
+            courseVideos.length === 0 ? (
+              <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
+                You have not added any videos to this course yet.
+              </div>
+            ) : (
+              courseVideos.map((video: Video) => (
+                <Card key={video.id} className="shadow-md">
+                  <CardContent className="flex justify-between items-center pt-4">
+                    <div className="flex flex-col gap-2">
+                      <CardTitle>{video.name}</CardTitle>
+                      <CardDescription>{video.description}</CardDescription>
+                    </div>
+                    <Button onClick={() => handleViewVideo(video.id)}>
+                      View
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))
+            )
+          ) : (
+            <>
+              <Card className="shadow-md">
                 <CardContent className="flex justify-between items-center pt-4">
                   <div className="flex flex-col gap-2">
-                    <CardTitle>{video.name}</CardTitle>
-                    <CardDescription>{video.description}</CardDescription>
+                    <Skeleton className="w-36 h-4 rounded-lg " />
+                    <Skeleton className="w-56 h-4 rounded-lg" />
                   </div>
-                  <Button onClick={() => handleViewVideo(video.id)}>
-                    View
-                  </Button>
+                  <Skeleton className="h-10 w-24 rounded-lg" />
                 </CardContent>
               </Card>
-            ))
-          ) : (
-            // TO DO: Add a skeleton here
-            <p className="text-lg">Loading</p>
+              <Card className="shadow-md">
+                <CardContent className="flex justify-between items-center pt-4">
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="w-36 h-4 rounded-lg " />
+                    <Skeleton className="w-56 h-4 rounded-lg" />
+                  </div>
+                  <Skeleton className="h-10 w-24 rounded-lg" />
+                </CardContent>
+              </Card>
+            </>
           )}
         </div>
       </div>

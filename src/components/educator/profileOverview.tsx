@@ -12,7 +12,7 @@ import { useReadContracts } from "wagmi";
 
 const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
   const courses: string[] = allCourses;
-  const [totalSales, setTotalSales] = React.useState(7);
+  const [totalSales, setTotalSales] = React.useState(0);
   const [courseEarnings, setCourseEarnings] = React.useState([
     { courseId: "00000", earnings: 0 },
   ]);
@@ -84,6 +84,8 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
         };
       });
 
+      // console.log("course earnings :", courseEarnings);
+
       setCourseEarnings(courseEarnings);
 
       setTotalEarnings(totalEarnings);
@@ -102,9 +104,9 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
         return acc + Number(contract.result);
       }, 0);
 
-      // TO DO: uncomment this line after testing
+      console.log("total sales :", totalSales);
 
-      // setTotalSales(totalSales);
+      setTotalSales(totalSales - 1);
     }
   }, [totalSalesData, readTotalSalesLoading]);
 

@@ -39,6 +39,10 @@ const EducatorEarnings = () => {
               <Skeleton className="rounded-lg shadow-md bg-white h-28" />
               <Skeleton className="rounded-lg shadow-md bg-white h-28" />
             </div>
+          ) : courses.length === 0 ? (
+            <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
+              You have not created any course yet.
+            </div>
           ) : (
             courses.map((courseAddress) => (
               <EarningCourseCard

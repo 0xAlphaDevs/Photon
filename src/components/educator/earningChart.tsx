@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { TrendingUp } from "lucide-react";
+import { FrownIcon, TrendingUp } from "lucide-react";
 import { Label, Pie, PieChart } from "recharts";
 import {
   ChartConfig,
@@ -55,49 +55,58 @@ export function EarningChart({ courseEarnings }: any) {
       config={chartConfig}
       className="mx-auto aspect-square max-h-[250px] my-auto"
     >
-      <PieChart>
-        <ChartTooltip
-          cursor={false}
-          content={<ChartTooltipContent hideLabel />}
-        />
-        <Pie
-          data={chartData}
-          dataKey="earnings"
-          nameKey="courseId"
-          innerRadius={60}
-          strokeWidth={5}
-        >
-          <Label
-            content={({ viewBox }) => {
-              if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                return (
-                  <text
-                    x={viewBox.cx}
-                    y={viewBox.cy}
-                    textAnchor="middle"
-                    dominantBaseline="middle"
-                  >
-                    <tspan
+      {totalEarnings == 0 ? (
+        <div className="flex flex-col items-center justify-center h-full w-full">
+          <FrownIcon className="w-12 h-12 text-muted-foreground" />
+          <p className="text-lg font-bold text-muted-foreground">
+            No Earnings till now.
+          </p>
+        </div>
+      ) : (
+        <PieChart>
+          <ChartTooltip
+            cursor={false}
+            content={<ChartTooltipContent hideLabel />}
+          />
+          <Pie
+            data={chartData}
+            dataKey="earnings"
+            nameKey="courseId"
+            innerRadius={60}
+            strokeWidth={5}
+          >
+            <Label
+              content={({ viewBox }) => {
+                if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                  return (
+                    <text
                       x={viewBox.cx}
                       y={viewBox.cy}
-                      className="fill-foreground text-3xl font-bold"
+                      textAnchor="middle"
+                      dominantBaseline="middle"
                     >
-                      {totalEarnings.toLocaleString()}
-                    </tspan>
-                    <tspan
-                      x={viewBox.cx}
-                      y={(viewBox.cy || 0) + 24}
-                      className="fill-muted-foreground"
-                    >
-                      PHT Earned
-                    </tspan>
-                  </text>
-                );
-              }
-            }}
-          />
-        </Pie>
-      </PieChart>
+                      <tspan
+                        x={viewBox.cx}
+                        y={viewBox.cy}
+                        className="fill-foreground text-3xl font-bold"
+                      >
+                        {totalEarnings.toLocaleString()}
+                      </tspan>
+                      <tspan
+                        x={viewBox.cx}
+                        y={(viewBox.cy || 0) + 24}
+                        className="fill-muted-foreground"
+                      >
+                        PHT Earned
+                      </tspan>
+                    </text>
+                  );
+                }
+              }}
+            />
+          </Pie>
+        </PieChart>
+      )}
     </ChartContainer>
   );
 }

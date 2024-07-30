@@ -39,15 +39,21 @@ const LearnerPurchases = () => {
     <div className="py-8">
       <p className="text-3xl font-medium">My Purchases</p>
       <div className="grid grid-cols-3 gap-8 py-16">
-        {courses.length > 0
-          ? courses?.map((courseAddress: string) => (
-              <PurchasedCourseCard
-                key={courseAddress}
-                courseNftAddress={courseAddress}
-              />
-            ))
-          : [1, 2, 3].map((index) => <CourseCardSkeleton key={index} />)}
+        {courses.length > 0 &&
+          courses?.map((courseAddress: string) => (
+            <PurchasedCourseCard
+              key={courseAddress}
+              courseNftAddress={courseAddress}
+            />
+          ))}
+        {isLoading &&
+          [1, 2, 3].map((index) => <CourseCardSkeleton key={index} />)}
       </div>
+      {courses.length === 0 && !isLoading && (
+        <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
+          You have not purchased any course yet.
+        </div>
+      )}
     </div>
   );
 };

@@ -32,9 +32,18 @@ const EducatorDashboard = () => {
         <CreateCourse />
       </div>
       <div className="flex flex-col gap-8 py-16">
-        {courses.map((courseAddress: string) => (
-          <MyCoursesCard key={courseAddress} courseNftAddress={courseAddress} />
-        ))}
+        {courses.length === 0 ? (
+          <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
+            You have not created any course yet.
+          </div>
+        ) : (
+          courses.map((courseAddress: string) => (
+            <MyCoursesCard
+              key={courseAddress}
+              courseNftAddress={courseAddress}
+            />
+          ))
+        )}
       </div>
     </div>
   );
