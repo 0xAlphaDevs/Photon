@@ -33,6 +33,7 @@ export function CreateCourse() {
     description: "",
     price: 0,
   })
+  const [transactionSuccess, setTransactionSuccess] = useState(false);
   const { toast } = useToast();
   const { error, isPending, isSuccess, writeContract } = useWriteContract();
 
@@ -57,6 +58,20 @@ export function CreateCourse() {
     });
   };
 
+  const handleCreateAnotherCourse = () => {
+    setFormData({
+      name: "",
+      symbol: "",
+      description: "",
+      price: 0,
+    })
+    setTransactionSuccess(false)
+  }
+
+  useEffect(() => {
+    isSuccess ? setTransactionSuccess(true) : setTransactionSuccess(false);
+  }, [isSuccess])
+
   return (
 
     <Dialog>
@@ -69,10 +84,11 @@ export function CreateCourse() {
             <Spinner />
           </div>
         ) :
-          isSuccess ? (
-            <div className="flex flex-col justify-center items-center text-green-500  h-96">
-              <CheckCircleIcon />
-              <p>Course Created Successfully</p>
+          transactionSuccess ? (
+            <div className="flex flex-col justify-center gap-4 items-center text-green-500  h-96">
+              <CheckCircleIcon className="h-12 w-12" />
+              <p className="font-semibold text-lg">Course Created Successfully</p>
+              <Button onClick={handleCreateAnotherCourse} className="absolute bottom-8">Create Another Course</Button>
             </div>
           ) : (
             <>
