@@ -1,8 +1,7 @@
-import { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) {
   const requestURL = new URL(req.url as string);
   const courseId = requestURL.searchParams.get("course_id");
   const courseCreator = requestURL.searchParams.get("course_creator");
