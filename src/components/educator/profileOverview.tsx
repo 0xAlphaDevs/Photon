@@ -14,8 +14,7 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
   const courses: string[] = allCourses;
   const [totalSales, setTotalSales] = React.useState(7);
   const [courseEarnings, setCourseEarnings] = React.useState([
-    { courseId: "THETA101", earnings: 100 },
-    { courseId: "THETA105", earnings: 500 },
+    { courseId: "00000", earnings: 0 },
   ]);
   const [totalEarnings, setTotalEarnings] = React.useState(0);
 
@@ -85,7 +84,7 @@ const ProfileOverview = ({ allCourses }: { allCourses: string[] }) => {
         };
       });
 
-      // setCourseEarnings(courseEarnings);
+      setCourseEarnings(courseEarnings);
 
       setTotalEarnings(totalEarnings);
     }

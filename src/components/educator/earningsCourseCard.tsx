@@ -25,7 +25,8 @@ const EarningCourseCard = ({ courseNftAddress }: any) => {
     symbol: "",
     courseEarnings: 0,
   });
-  const { error, isPending, writeContract } = useWriteContract();
+  const { error, isPending, isSuccess, writeContract } = useWriteContract();
+
   const {
     data: contractsData,
     error: readContractsError,
@@ -75,6 +76,7 @@ const EarningCourseCard = ({ courseNftAddress }: any) => {
       address: courseNftAddress,
       abi: PhotonCourseAbi,
       functionName: "withdrawCourseEarnings",
+      account: address,
     });
   };
 
@@ -114,7 +116,9 @@ const EarningCourseCard = ({ courseNftAddress }: any) => {
             </p>
           </CardDescription>
         </div>
-        <Button onClick={handleWithdrawEarnings}>Withdraw Earnings</Button>
+        <Button onClick={handleWithdrawEarnings} disabled={isPending}>
+          {isPending && !isSuccess ? "Txn in process..." : "Withdraw Earnings"}
+        </Button>
       </CardContent>
     </Card>
   );
