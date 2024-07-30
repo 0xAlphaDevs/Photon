@@ -8,6 +8,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { PhotonCourseAbi } from "@/lib/abi/PhotonCourseAbi";
 import { useAccount, useReadContracts, useWriteContract } from "wagmi";
+import { Skeleton } from "../ui/skeleton";
 
 interface Course {
   name: string;
@@ -19,9 +20,9 @@ interface Course {
 const EarningCourseCard = ({ courseNftAddress }: any) => {
   const { address } = useAccount();
   const [course, setCourse] = React.useState<Course>({
-    name: "loading...",
-    description: "loading...",
-    symbol: "loading...",
+    name: "",
+    description: "",
+    symbol: "",
     courseEarnings: 0,
   });
   const { error, isPending, writeContract } = useWriteContract();
@@ -76,6 +77,24 @@ const EarningCourseCard = ({ courseNftAddress }: any) => {
       functionName: "withdrawCourseEarnings",
     });
   };
+
+  if (readContractsLoading) {
+    return (
+      <Card key={courseNftAddress} className="shadow-md">
+        <CardContent className="flex justify-between items-center pt-4">
+          <div className="flex flex-col gap-4">
+            <Skeleton className="w-36 h-4 rounded-lg " />
+            <Skeleton className="w-56 h-4 rounded-lg" />
+            <CardDescription className="flex gap-40">
+              <Skeleton className="h-4 w-24 rounded-lg" />
+              <Skeleton className="h-4 w-24 rounded-lg" />
+            </CardDescription>
+          </div>
+          <Skeleton className="h-10 w-32 rounded-lg" />
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card key={courseNftAddress} className="shadow-md">

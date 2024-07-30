@@ -35,9 +35,9 @@ const EducatorEarnings = () => {
         <div className="flex flex-col gap-4 my-4">
           {isLoading ? (
             <div className="flex flex-col gap-4">
-              <Skeleton className="h-20 rounded-lg" />
-              <Skeleton className="h-20 rounded-lg" />
-              <Skeleton className="h-20 rounded-lg" />
+              <Skeleton className="rounded-lg shadow-md bg-white h-28" />
+              <Skeleton className="rounded-lg shadow-md bg-white h-28" />
+              <Skeleton className="rounded-lg shadow-md bg-white h-28" />
             </div>
           ) : (
             courses.map((courseAddress) => (
