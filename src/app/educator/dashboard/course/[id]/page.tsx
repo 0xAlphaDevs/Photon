@@ -12,6 +12,14 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { AddVideo } from "@/components/educator/addVideo";
@@ -19,6 +27,7 @@ import { MoveLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCourseDetails } from "@/lib/getCourseDetails";
 import { useAccount } from "wagmi";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
@@ -37,9 +46,9 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   console.log("courseNftAddress", courseNftAddress);
 
-  const handleGoLive = () => {
-    router.push(`/educator/dashboard/course/${courseId}/livestream`);
-  };
+  // const handleGoLive = () => {
+  //   router.push(`/educator/dashboard/course/${courseId}/livestream`);
+  // };
 
   const handleViewVideo = (videoId: string) => {
     router.push(`/educator/dashboard/course/${courseId}/video/${videoId}`);
@@ -87,6 +96,19 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           {/* <Button onClick={handleGoLive} className="text-lg">
             Go Live
           </Button> */}
+          <Dialog>
+            <DialogTrigger asChild>
+              <Button className="text-lg">Go Live</Button>
+            </DialogTrigger>
+            <DialogContent>
+              <DialogHeader>
+                <DialogTitle>Live classes</DialogTitle>
+              </DialogHeader>
+              <div className="flex justify-center py-4 text-3xl font-semibold text-muted-foreground">
+                <Image src="/coming-soon.png" width={150} height={150} alt="Logo" />
+              </div>
+            </DialogContent>
+          </Dialog>
           <AddVideo
             courseNftAddress={courseNftAddress as string}
             courseId={courseId as string}
@@ -157,8 +179,26 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               </Card>
             ))
           ) : (
-            // TO DO: Add a skeleton here
-            <p className="text-lg">Loading</p>
+            <>
+              <Card className="shadow-md">
+                <CardContent className="flex justify-between items-center pt-4">
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="w-36 h-4 rounded-lg " />
+                    <Skeleton className="w-56 h-4 rounded-lg" />
+                  </div>
+                  <Skeleton className="h-10 w-24 rounded-lg" />
+                </CardContent>
+              </Card>
+              <Card className="shadow-md">
+                <CardContent className="flex justify-between items-center pt-4">
+                  <div className="flex flex-col gap-2">
+                    <Skeleton className="w-36 h-4 rounded-lg " />
+                    <Skeleton className="w-56 h-4 rounded-lg" />
+                  </div>
+                  <Skeleton className="h-10 w-24 rounded-lg" />
+                </CardContent>
+              </Card>
+            </>
           )}
         </div>
       </div>
