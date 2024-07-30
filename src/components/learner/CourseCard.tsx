@@ -179,8 +179,12 @@ const CourseCard = ({ courseNftAddress }: any) => {
             Course Already Purchased
           </Button>
         ) : Number(allowance) < course.price ? (
-          <Button onClick={handleApprove} className="w-full">
-            Approve PHT spend
+          <Button
+            onClick={handleApprove}
+            className="w-full"
+            disabled={isPending}
+          >
+            {isPending ? "Approving PHT Spend..." : "Approve PHT Spend"}
           </Button>
         ) : (
           <Button
