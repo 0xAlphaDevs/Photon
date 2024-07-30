@@ -25,6 +25,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   const searchParams = useSearchParams();
 
   const [courseVideos, setCourseVideos] = useState<Video[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const { address } = useAccount();
 
@@ -56,6 +57,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
   const fetchData = async () => {
     console.log("fetching course videos");
+    setLoading(true);
 
     const response = await getCourseDetails({
       courseId: courseId as string,
@@ -74,6 +76,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
     videos.reverse();
 
     setCourseVideos(videos);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -145,17 +148,24 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       <div className="">
         <p className="text-3xl font-semibold py-4">Course Content</p>
         <div className="flex flex-col gap-4">
-          {courseVideos.map((video: Video) => (
-            <Card key={video.id} className="shadow-md">
-              <CardContent className="flex justify-between items-center pt-4">
-                <div className="flex flex-col gap-2">
-                  <CardTitle>{video.name}</CardTitle>
-                  <CardDescription>{video.description}</CardDescription>
-                </div>
-                <Button onClick={() => handleViewVideo(video.id)}>View</Button>
-              </CardContent>
-            </Card>
-          ))}
+          {!loading ? (
+            courseVideos.map((video: Video) => (
+              <Card key={video.id} className="shadow-md">
+                <CardContent className="flex justify-between items-center pt-4">
+                  <div className="flex flex-col gap-2">
+                    <CardTitle>{video.name}</CardTitle>
+                    <CardDescription>{video.description}</CardDescription>
+                  </div>
+                  <Button onClick={() => handleViewVideo(video.id)}>
+                    View
+                  </Button>
+                </CardContent>
+              </Card>
+            ))
+          ) : (
+            // TO DO: Add a skeleton here
+            <p className="text-lg">Loading</p>
+          )}
         </div>
       </div>
     </div>
