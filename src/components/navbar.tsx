@@ -30,7 +30,7 @@ const Navbar: React.FC<NavbarProps> = ({ links, supText }) => {
               prefetch={false}
             >
               <Image
-                src="/favicon.png"
+                src="/logo.png"
                 width={40}
                 height={40}
                 alt="Picture of the author"
