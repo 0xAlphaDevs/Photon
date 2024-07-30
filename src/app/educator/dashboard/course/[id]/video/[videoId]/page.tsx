@@ -10,8 +10,7 @@ const VideoIdPage = () => {
   const { id } = useParams();
   console.log("ID", id);
 
-  // const videoId = pathname.split("/").pop();
-  const videoId = "video_vadc0zt362sb28xtwqk254df9p";
+  const videoId = "video_bwfu8ir6mjmfaf0edtb2dz6vi6";
 
   console.log("Video ID", videoId);
 

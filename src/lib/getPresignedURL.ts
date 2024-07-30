@@ -1,17 +1,10 @@
-export const createJWT = async (data: string) => {
-  const result = await callApi(data);
-
+export const getPresignedURL = async () => {
+  const result = await callApi();
   return result;
 };
 
-async function callApi(message: string) {
-  const res = await fetch("/api/create-jwt-token", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    // body: JSON.stringify({ message }),
-  });
+async function callApi() {
+  const res = await fetch(`/api/get-presigned-url`);
   if (!res.ok) {
     const json = await res.json();
     if (json.error) {

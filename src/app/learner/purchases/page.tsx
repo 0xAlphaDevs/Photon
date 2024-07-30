@@ -46,8 +46,7 @@ const LearnerPurchases = () => {
                 courseNftAddress={courseAddress}
               />
             ))
-          : // TO DO
-            [1, 2, 3].map((index) => <CourseCardSkeleton key={index} />)}
+          : [1, 2, 3].map((index) => <CourseCardSkeleton key={index} />)}
       </div>
     </div>
   );

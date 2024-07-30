@@ -1,6 +1,5 @@
 "use client";
 import Spinner from "@/components/spinner";
-import { createJWT } from "@/lib/create-jwt";
 import React, { Component, useEffect } from "react";
 // @ts-ignore
 import { StudioPlayer } from "theta-video-api-drm-player";
@@ -19,17 +18,16 @@ export const DRMPlayer = ({ videoId }: DRMPlayerProps) => {
 
   // USE connectButtonAlt ONLY IF YOU DON'T WANT THE CONNECT WALLET BUTTON
   // AND WANT TO PROVIDE YOUR OWN CONNECT BUTTON
-  const connectButtonAlt = {
-    label: "Button Label",
-    link: "Button Link",
-  };
+  // const connectButtonAlt = {
+  //   label: "Button Label",
+  //   link: "Button Link",
+  // };
 
   const params = {
     // signin: signin,
     jwt: "",
     autoconnect: true,
     useBeta: false,
-    connectButtonAlt: connectButtonAlt,
   };
 
   const videoJsParams = {
@@ -55,18 +53,6 @@ export const DRMPlayer = ({ videoId }: DRMPlayerProps) => {
       console.log("onInit", e);
     },
   };
-
-  const fetchData = async () => {
-    setLoading(true);
-    const result = await createJWT("data");
-    console.log("result", result);
-    // params.jwt = result.jwt;
-    setLoading(false);
-  };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
 
   return (
     <div className="flex p-8 w-full ">

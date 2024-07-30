@@ -18,26 +18,36 @@ import { AddVideo } from "@/components/educator/addVideo";
 import { MoveLeftIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getCourseDetails } from "@/lib/getCourseDetails";
+import { useAccount } from "wagmi";
 
 const CoursePage = ({ params }: { params: { id: string } }) => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
+  const [courseVideos, setCourseVideos] = useState<Video[]>([]);
+
+  const { address } = useAccount();
+
   const courseNftAddress = searchParams.get("address");
+  const courseId = searchParams.get("course-id");
+  const coursePrice = searchParams.get("course-price");
+  const courseDescription = searchParams.get("course-description");
+  const courseName = searchParams.get("course-name");
 
   console.log("courseNftAddress", courseNftAddress);
 
-  const sampleCourse: any = courses.find(
-    (course: Course) => course.id === params.id
-  );
-  const [course, setCourse] = useState<Course>(sampleCourse);
+  // Static data below
+  // const sampleCourse: any = courses.find(
+  //   (course: Course) => course.id === params.id
+  // );
+  // const [course, setCourse] = useState<Course>(sampleCourse);
 
   const handleGoLive = () => {
-    router.push(`/educator/dashboard/course/${course.id}/livestream`);
+    router.push(`/educator/dashboard/course/${courseId}/livestream`);
   };
 
   const handleViewVideo = (videoId: string) => {
-    router.push(`/educator/dashboard/course/${course.id}/video/${videoId}`);
+    router.push(`/educator/dashboard/course/${courseId}/video/${videoId}`);
   };
 
   const handleBackClick = () => {
@@ -45,13 +55,25 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
   };
 
   const fetchData = async () => {
-    console.log("fetching data");
+    console.log("fetching course videos");
 
     const response = await getCourseDetails({
-      courseId: course.id,
-      courseCreator: course.creator,
+      courseId: courseId as string,
+      courseCreator: address as string,
     });
     console.log("response from get-course-videos", response);
+    // set course videos
+    const videos = response.course_videos.map((video: any) => {
+      return {
+        id: video.id,
+        name: video.metadata.title,
+        description: video.metadata.description,
+      };
+    });
+    // reverse the videos array
+    videos.reverse();
+
+    setCourseVideos(videos);
   };
 
   useEffect(() => {
@@ -70,14 +92,15 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           </Button> */}
           <AddVideo
             courseNftAddress={courseNftAddress as string}
-            courseId={course.id}
+            courseId={courseId as string}
+            courseCreator={address as string}
           />
         </div>
       </div>
       {/* Course Details */}
       <div className="my-8">
         <div className="flex justify-between items-center mb-4">
-          <p className="text-4xl font-semibold py-1"> {course.name}</p>
+          <p className="text-4xl font-semibold py-1"> {courseName}</p>
         </div>
         <div className="flex w-full gap-10">
           <div className="flex flex-col gap-4 shadow-md p-4 rounded-[10px] w-full">
@@ -85,11 +108,11 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
 
             <div className="flex gap-2 items-center">
               <p className="font-semibold"> Course ID : </p>
-              <Badge>{course.id}</Badge>
+              <Badge>{courseId}</Badge>
             </div>
             <div className="flex gap-2 items-center">
               <p className="font-semibold">Course Price : </p>
-              <p className="text-lg"> {course.price} PHT</p>
+              <p className="text-lg"> {Number(coursePrice) / 10 ** 18} PHT</p>
             </div>
 
             <p className="font-semibold">
@@ -104,13 +127,13 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
               Course Description :{" "}
               <span className="text-muted-foreground">
                 {" "}
-                {course.description}
+                {courseDescription}
               </span>
             </p>
           </div>
           <div className="flex justify-center  p-3 rounded-[10px] object-contain mb-4 w-full">
             <Image
-              src={course.thumbnailUrl}
+              src={"/logo.png"}
               height={160}
               width={160}
               alt="Course Thumbnail"
@@ -122,7 +145,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
       <div className="">
         <p className="text-3xl font-semibold py-4">Course Content</p>
         <div className="flex flex-col gap-4">
-          {course.videos.map((video: Video) => (
+          {courseVideos.map((video: Video) => (
             <Card key={video.id} className="shadow-md">
               <CardContent className="flex justify-between items-center pt-4">
                 <div className="flex flex-col gap-2">

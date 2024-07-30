@@ -84,7 +84,9 @@ const MyCoursesCard = ({ courseNftAddress }: any) => {
   }, [readContractsData, readContractsLoading]);
 
   const handleViewCourse = (id: string) => {
-    router.push(`/educator/dashboard/course/${id}?address=${courseNftAddress}`);
+    router.push(
+      `/educator/dashboard/course/${id}?address=${courseNftAddress}&course-id=${course.courseId}&course-name=${course.name}&course-description=${course.description}&course-price=${course.price}`
+    );
   };
 
   if (readContractsLoading) {
