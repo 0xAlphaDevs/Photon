@@ -79,7 +79,7 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
         name: name as string,
         description: description as string,
         price: Number(price),
-        owner: owner as string,
+        owner: (owner as string),
       });
     }
   }, [readContractsData, readContractsLoading]);
@@ -118,22 +118,19 @@ export function PurchasedCourseCard({ courseNftAddress }: any) {
   return (
     <Card key={courseNftAddress} className="shadow-md">
       <CardHeader>
+        <div className="font-bold text-xl text-muted-foreground"> {course.courseId}</div>
         <CardTitle>{course.name}</CardTitle>
         <CardDescription>
-          <div>
-            <p> {course.description}</p>
-            <p className="font-semibold py-2 text-blue-500">
-              Educator :{" "}
-              {course.owner?.slice(0, 6) +
-                "..." +
-                (course.owner as string)?.slice(-6)}
-            </p>
+          <p>{course.description}</p>
+          <div className="flex justify-between pt-4">
+            <p className="text-xl bg-green-100 px-3 py-2 rounded-lg font-bold">{course.price / 10 ** 18} PHT</p>
           </div>
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex justify-between">
-        <p>Course ID : {course.courseId}</p>
-        <p>Price: {course.price / 10 ** 18} PHT</p>
+      <CardContent className="">
+        <p className="font-semibold text-blue-500">
+          Educator : {course.owner?.slice(0, 6) + "..." + course.owner?.slice(-6)}
+        </p>
       </CardContent>
       <CardFooter>
         <Button

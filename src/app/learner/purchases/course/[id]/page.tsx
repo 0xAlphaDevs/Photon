@@ -122,7 +122,7 @@ const CoursePage = ({ params }: { params: { id: string } }) => {
           {!loading ? (
             courseVideos.length === 0 ? (
               <div className="flex justify-center text-lg font-bold mt-4 text-muted-foreground">
-                You have not added any videos to this course yet.
+                This course does not have any videos yet.
               </div>
             ) : (
               courseVideos.map((video: Video) => (

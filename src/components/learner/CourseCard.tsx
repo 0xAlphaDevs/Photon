@@ -13,6 +13,7 @@ import { useAccount, useReadContracts, useWriteContract } from "wagmi";
 import { PhotonTokenAbi, PhotonTokenAddress } from "@/lib/abi/PhotonToken";
 import { Skeleton } from "../ui/skeleton";
 import { useToast } from "../ui/use-toast";
+import { Badge } from "../ui/badge";
 
 interface Course {
   courseId: string;
@@ -159,19 +160,19 @@ const CourseCard = ({ courseNftAddress }: any) => {
   return (
     <Card key={courseNftAddress} className="shadow-md">
       <CardHeader>
+        <div className="font-bold text-xl text-muted-foreground"> {course.courseId}</div>
         <CardTitle>{course.name}</CardTitle>
         <CardDescription>
-          <div>
-            <p>{course.description}</p>
-            <p className="font-semibold py-2 text-blue-500">
-              Educator : {course.owner}
-            </p>
+          <p>{course.description}</p>
+          <div className="flex justify-between pt-4">
+            <p className="text-xl bg-green-100 px-3 py-2 rounded-lg font-bold">{course.price / 10 ** 18} PHT</p>
           </div>
         </CardDescription>
       </CardHeader>
-      <CardContent className="flex justify-between">
-        <p>Course ID: {course.courseId}</p>
-        <p>Price: {course.price / 10 ** 18} PHT</p>
+      <CardContent className="">
+        <p className="font-semibold text-blue-500">
+          Educator : {course.owner}
+        </p>
       </CardContent>
       <CardFooter>
         {course.balance > 0 ? (
